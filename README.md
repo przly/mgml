@@ -84,3 +84,37 @@ Each file has comments explaining the details; below is a short summary per file
   site's global `h1` styles; drop it if the real theme already has them.
 - **`03-modules/latest-exhibitions/latest-exhibitions.scss`, `.js`**: strong ease-out on the slide transition, reduced
   motion support, and a custom "1 / 4" counter whose number rolls up or down with the slide direction.
+
+## Jira task summary: homepage hero animation
+
+**Title:** Homepage hero (landing module): match the corporate site's intro and add scroll parallax
+
+**Summary:** The homepage hero (`03-modules/landing-module`) was rebuilt to match the corporate site
+(mgml-www.specto.work), and its motion was refined. It uses the new text-reveal atom (`01-atoms/text-reveal`), a plain
+JS + GSAP port of the Specto text-reveal engine.
+
+**What changed:**
+
+- **Intro sequence:** the background logo fades in, the title reveals word by word, then the text line by line and the
+  buttons follow as one continuous sequence, and finally the images rise and wipe open from the bottom, left to right
+  on screen. Strong ease-out (easeOutQuart), as on the corporate site.
+- **Font loading:** the intro waits for the web fonts (at most 600ms), so the title never swaps font mid-animation.
+- **Scroll parallax:** ScrollTrigger replaces ScrollMagic. Over the first viewport height of scroll, each image frame
+  moves down 100px or 200px (the corporate site uses 50px or 100px), and the photo inside, zoomed to 1.25, drifts from
+  -10% to 10%. The motion is locked to the scroll position, with no random trailing delay. It starts at scroll 0, so
+  the first ~106px of scroll is no longer dead.
+- **Reduced motion:** no parallax, and the intro is short opacity fades with no movement.
+- **No JS:** the hero is hidden for the intro only once the script runs, so without JS it is simply visible.
+
+**Files:** `03-modules/landing-module/landing-module.js`, `landing-module.scss`, `01-atoms/text-reveal/text-reveal.js`,
+`text-reveal.scss` (new).
+
+**To check before merging:** `landing-module.scss` has a base `h1` rule because the sandbox lacked the corporate site's
+global `h1` styles. Drop it if the real theme already has them.
+
+**Acceptance criteria:**
+
+- The intro plays once on load in the order above, with no font swap or flash of the final state.
+- The images move with the scroll only during the first viewport height, and the frame edges never show.
+- With "reduce motion" on, the hero only fades in and does not move on scroll.
+- With JS disabled, the hero is fully visible.
