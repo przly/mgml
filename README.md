@@ -109,6 +109,8 @@ JS + GSAP port of the Specto text-reveal engine.
 **Files:** `03-modules/landing-module/landing-module.js`, `landing-module.scss`, `01-atoms/text-reveal/text-reveal.js`,
 `text-reveal.scss` (new).
 
+**Code:** https://github.com/przly/mgml (hero: [`landing-module`](https://github.com/przly/mgml/tree/main/source/components/03-modules/landing-module), [`text-reveal`](https://github.com/przly/mgml/tree/main/source/components/01-atoms/text-reveal))
+
 **To check before merging:** `landing-module.scss` has a base `h1` rule because the sandbox lacked the corporate site's
 global `h1` styles. Drop it if the real theme already has them.
 
