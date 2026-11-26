@@ -1,0 +1,64 @@
+// **************************************************
+// Language Switch
+// **************************************************
+
+@import '../../../scss/import';
+
+.language-switch {
+	position: relative;
+	display: flex;
+	z-index: 10;
+	gap: 4px;
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		display: none;
+	}
+
+	// ##################################################
+
+	&__separator {
+		opacity: 0.1;
+
+		// stylelint-disable-next-line
+		.#{$theme_mgml} & {
+			opacity: 1;
+			color: var(--color-gray-400);
+		}
+	}
+
+	// ##################################################
+
+	&__link {
+		display: flex;
+		position: relative;
+		transition: none;
+		opacity: 0.5;
+		@extend %hover_lines;
+
+		// ##################################################
+
+		&:hover {
+			opacity: 1;
+
+			// stylelint-disable-next-line
+			.#{$theme_mgml} & {
+				color: var(--color-mgml);
+			}
+		}
+
+		// ##################################################
+
+		// stylelint-disable-next-line
+		&.#{$class_active} {
+			opacity: 1;
+			pointer-events: none;
+
+			// stylelint-disable-next-line
+			&::before,
+			&::after {
+				display: none;
+			}
+		}
+	}
+}

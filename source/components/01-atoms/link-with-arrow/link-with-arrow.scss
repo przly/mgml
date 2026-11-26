@@ -1,0 +1,224 @@
+// **************************************************
+// Link with arrow
+// **************************************************
+
+@import '../../../scss/import';
+
+.link-with-arrow {
+	display: inline-flex;
+	font-weight: 600;
+	align-items: center;
+	gap: 8px;
+	color: $cgp_gray_800;
+	// Base state = hover-out. The hover state switches to $hover_in_duration.
+	transition: color $hover_out_duration $ease_out_strong, border-color $hover_out_duration $ease_out_strong;
+	padding-bottom: 8px;
+	border-bottom: 1px solid var(--color-gray-200);
+	position: relative;
+
+	// stylelint-disable-next-line
+	.#{$theme_premium_black} & {
+		color: var(--color-gray-200);
+		border-color: var(--color-gray-800);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} & {
+		color: inherit;
+		border-color: var(--theme-border);
+	}
+
+	// **************************************************
+
+	&:after {
+		content: '';
+		height: 1px;
+		position: absolute;
+		width: 100%;
+		background-color: var(--color-gray-800);
+		// Scaled instead of resized, so the line does not trigger layout on every frame
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform $hover_out_duration $ease_out_strong;
+		bottom: -1px;
+		left: 0;
+
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			background-color: var(--color-gray-200);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: rgba($cgp_white, 0.3);
+		}
+	}
+
+	// **************************************************
+
+	&.top-line {
+		padding-bottom: 0;
+		padding-top: 8px;
+		border-bottom: none;
+		border-top: 1px solid var(--color-gray-200);
+
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			border-color: var(--color-gray-800);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			border-color: var(--theme-border);
+		}
+
+		&:after {
+			bottom: auto;
+			top: -1px;
+		}
+	}
+
+	// **************************************************
+
+	&__arrow {
+		// Not clipped, so the press nudge can move the arrow past its box
+		overflow: visible;
+		position: relative;
+		height: 16px;
+		width: 16px;
+
+		.icon {
+			&:before {
+				background-color: var(--color-gray-800);
+				transition: background-color $hover_out_duration $ease_out_strong;
+
+				// stylelint-disable-next-line
+				.#{$theme_galerija_jakopic} &,
+				.#{$theme_premium_black} & {
+					background-color: currentColor;
+				}
+			}
+
+			// Same box as the right arrow. The SVGs share one viewBox, so the arrows match exactly
+			&-arrow-down,
+			&-arrow-up {
+				width: 14px;
+				height: 14px;
+			}
+		}
+
+		.arrow-1,
+		.arrow-2 {
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			margin: auto;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			// Press feedback, same as .slider-arrow: the arrow gives a small push in its direction
+			transition: transform 0.16s $transition_easeInOutCubic;
+		}
+
+		// Only one arrow is shown; the second stays in the markup for older templates
+		.arrow-1 {
+			display: none;
+		}
+	}
+
+	// **************************************************
+
+	--link-arrow-nudge-x: 3px;
+	--link-arrow-nudge-y: 0px;
+
+	// Active state: hover on devices that really hover, and keyboard focus, same as .slider-arrow.
+	// Separate rules, so a browser that does not know one selector does not drop the other.
+	&:focus-visible {
+		@include link-with-arrow-active;
+
+		.icon::before {
+			background-color: var(--theme-accent);
+		}
+	}
+
+	&:active .arrow-2,
+	&.is-pressed .arrow-2 {
+		transform: translate(var(--link-arrow-nudge-x), var(--link-arrow-nudge-y));
+		transition-duration: $press_duration;
+		transition-timing-function: $ease_out_press;
+	}
+
+	@media #{$media_hover} {
+		&:hover {
+			@include link-with-arrow-active;
+
+			// The theme's main colour (--theme-accent in _root.scss)
+			color: var(--theme-accent);
+
+			// stylelint-disable-next-line
+			.#{$theme_premium_black} &,
+			.#{$theme_galerija_jakopic} & {
+				color: var(--theme-accent);
+			}
+
+			.icon::before {
+				background-color: var(--theme-accent);
+			}
+		}
+	}
+
+	// The color change stays, only the movement goes
+	@media (prefers-reduced-motion: reduce) {
+		&::after,
+		.arrow-2 {
+			transition: none !important;
+		}
+
+		&:active .arrow-2,
+		&.is-pressed .arrow-2 {
+			transform: none;
+		}
+	}
+
+	// **************************************************
+
+	// "Red" is the theme's main colour (--theme-accent in _root.scss), the colour of its primary button
+	&--red {
+		color: var(--theme-accent);
+
+		// These themes set the link colour above with a more specific selector
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: var(--theme-accent);
+		}
+
+		.link-with-arrow__arrow {
+			.icon::before {
+				background-color: currentColor;
+			}
+		}
+
+		@media #{$media_hover} {
+			&:hover {
+				color: var(--color-gray-800);
+			}
+		}
+	}
+
+	// **************************************************
+
+	&--down-arrow {
+		--link-arrow-nudge-x: 0px;
+		--link-arrow-nudge-y: 3px;
+	}
+
+	// **************************************************
+
+	&--up-arrow {
+		--link-arrow-nudge-x: 0px;
+		--link-arrow-nudge-y: -3px;
+	}
+}

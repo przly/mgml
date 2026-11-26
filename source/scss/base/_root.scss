@@ -1,0 +1,277 @@
+// ##################################################
+// Colors
+// ##################################################
+:root {
+	--color-white: #{$cgp_white};
+	--color-black: #{$cgp_black};
+
+	--color-red: #{$cgp_red};
+
+	--color-gray-50: #{$cgp_gray_50};
+	--color-gray-100: #{$cgp_gray_100};
+	--color-gray-200: #{$cgp_gray_200};
+	--color-gray-300: #{$cgp_gray_300};
+	--color-gray-400: #{$cgp_gray_400};
+	--color-gray-500: #{$cgp_gray_500};
+	--color-gray-600: #{$cgp_gray_600};
+	--color-gray-700: #{$cgp_gray_700};
+	--color-gray-800: #{$cgp_gray_800};
+	--color-gray-900: #{$cgp_gray_900};
+	--color-gray-950: #{$cgp_gray_950};
+
+	--color-mgml: #{$cgp_mgml};
+	--color-mestni-muzej: #{$cgp_mestni_muzej};
+	--color-emona: #{$cgp_emona};
+	--color-plecnikova: #{$cgp_plecnikova};
+	--color-vila-zlatica: #{$cgp_vila_zlatica};
+	--color-jakopic: #{$cgp_jakopic};
+	--color-jakopic-secondary: #{$cgp_jakopic_secondary};
+	--color-cukrarna: #{$cgp_cukrarna};
+	--color-mestna-galerija: #{$cgp_mestna_galerija};
+	--color-bezigrad: #{$cgp_bezigrad};
+	--color-vzigalice: #{$cgp_vzigalice};
+	--color-tobacna: #{$cgp_tobacna};
+	--color-teal: #{$cgp_teal};
+
+	--color-arheopark-turquoise: #{$cgp_arheopark_turquoise};
+	--color-arheopark-yellow: #{$cgp_arheopark_yellow};
+	--color-arheopark-scarlet: #{$cgp_arheopark_scarlet};
+
+	--color-orange-tag: #{$cgp_orange_tag};
+
+	--color-warning: #{$cgp_warning};
+	--color-error: #{$cgp_error};
+	--color-success: #{$cgp_success};
+	--color-validation-failed: #{$cgp_validation_failed};
+
+	--color-highlight-start: #968a84;
+	--color-highlight-end: #968a84;
+	--color-highlight-end-alt: #968a84;
+
+	--easing-ease-in-out: cubic-bezier(0.55, 0, 0.45, 1);
+	--easing-slow-down: cubic-bezier(0.25, 0.49, 0.31, 1);
+	--easing-long-slow-down: cubic-bezier(0.13, 0.63, 0.4, 0.97);
+	--easing-ease-motion: cubic-bezier(0.66, 0.19, 0.29, 0.79);
+	--easing-expressive-in-out: cubic-bezier(0.76, 0.09, 0.03, 0.96);
+	--easing-fly-in: cubic-bezier(0.08, 0.69, 0.07, 1);
+	--easing-fly-out: cubic-bezier(0.54, 0.01, 0.99, 0.26);
+
+	--font-primary: #{$font_primary};
+	--theme-font: #{$font_primary};
+	--font-plantin: 'Plantin MT Pro', 'neue-haas-unica', sans-serif;
+
+	// Main colour of the theme for links and slider arrows: the colour of its primary button, darkened (or lightened
+	// on dark pages) until it reaches WCAG AA 4.5:1 against the page background (#f5f5f5), so link text stays
+	// readable. Each theme below sets its own; the ratio is noted next to each value.
+	// Set per theme, not derived here: a var() is resolved where it is declared, so a theme's own
+	// --color-mgml would not reach a value worked out on :root
+	--theme-accent: var(--color-red); // #d52b29, 4.6:1
+}
+
+// ##################################################
+// MGML theme
+// ##################################################
+
+// stylelint-disable-next-line
+.#{$theme_mgml} {
+	--theme-font: #{$font_primary};
+	--theme-background-color: var(--color-gray-100);
+	--theme-color: var(--color-gray-800);
+	--theme-border: var(--color-gray-200);
+	--theme-menu-border: var(--color-gray-200);
+
+	// Footer
+	--theme-footer-background: var(--color-gray-950);
+	--theme-footer-color: var(--color-gray-200);
+	--theme-footer-border: var(--color-gray-800);
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: var(--color-red); // #d52b29, 4.6:1 (mgml red #e73137 is 3.9:1)
+}
+
+// ##################################################
+// Arheopark emona theme
+// ##################################################
+
+// stylelint-disable-next-line
+.#{$theme_arheopark_emona} {
+	--theme-font: 'Outfit', sans-serif;
+	--theme-background-color: var(--color-arheopark-turquoise);
+	--theme-color: var(--color-white);
+	--theme-border: #{rgba($cgp_white, 0.2)};
+	--theme-menu-border: #{rgba($cgp_white, 0.2)};
+
+	// Footer
+	--theme-footer-background: var(--color-arheopark-turquoise);
+	--theme-footer-color: var(--color-white);
+	--theme-footer-border: #{rgba($cgp_white, 0.15)};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: #0e7b7c; // 4.7:1 (turquoise #0f8384 is 4.2:1)
+}
+
+// ##################################################
+// Mestni muzej ljubljana theme
+// ##################################################
+
+// stylelint-disable-next-line
+.#{$theme_mestni_muzej_ljubljana} {
+	// General
+	--theme-font: 'dante-mt-pro', sans-serif;
+	--theme-background-color: var(--color-jakopic);
+	--theme-color: var(--color-white);
+
+	// Header
+	--theme-border: #{rgba(#998e76, 0.1)};
+	--theme-menu-border: #{rgba(#998e76, 0.1)};
+
+	// Top bar
+	--theme-top-bar-color: var(--color-white);
+	--theme-top-bar-background: var(--color-mestni-muzej);
+
+	// Footer
+	--theme-footer-background: var(--color-jakopic);
+	--theme-footer-color: var(--color-white);
+	--theme-footer-border: #{rgba($cgp_white, 0.15)};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: var(--color-red); // 4.6:1 (#f03c43 is 3.6:1)
+}
+
+// stylelint-disable-next-line
+.#{$theme_plecnikova_hisa} {
+	// General
+	--theme-font: 'AkkoW04', sans-serif;
+	--theme-background-color: var(--color-plecnikova);
+	--theme-color: var(--color-gray-800);
+	--theme-border: #{rgba($cgp_black, 0.1)};
+	--theme-menu-border: #{rgba($cgp_black, 0.1)};
+
+	// Footer
+	--theme-footer-background: var(--color-plecnikova);
+	--theme-footer-color: var(--color-gray-800);
+	--theme-footer-border: #{rgba($cgp_black, 0.1)};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: #836c3f; // 4.6:1 (#cdba96 is 1.7:1)
+}
+
+// stylelint-disable-next-line
+.#{$theme_vila_zlatica} {
+	// General
+	--theme-font: 'AkkoW04', sans-serif;
+	--theme-background-color: var(--color-vila-zlatica);
+	--theme-color: var(--color-gray-800);
+	--theme-border: #{rgba($cgp_black, 0.1)};
+	--theme-menu-border: #{rgba($cgp_black, 0.1)};
+
+	// Footer
+	--theme-footer-background: var(--color-vila-zlatica);
+	--theme-footer-color: var(--color-gray-800);
+	--theme-footer-border: #{rgba($cgp_black, 0.1)};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: #806c44; // 4.7:1 (#b7a277 is 2.3:1)
+}
+
+// stylelint-disable-next-line
+.#{$theme_mestna_galerija_ljubljana} {
+	// General
+	--theme-font: 'Superla CE', sans-serif;
+	--theme-background-color: var(--color-mestna-galerija);
+	--theme-color: var(--color-gray-800);
+	--theme-border: #{rgba($cgp_black, 0.1)};
+	--theme-menu-border: #{rgba($cgp_black, 0.1)};
+
+	// Footer
+	--theme-footer-background: var(--color-mestna-galerija);
+	--theme-footer-color: var(--color-gray-800);
+	--theme-footer-border: #{rgba($cgp_black, 0.1)};
+
+	// Overwrites
+	--color-mgml: #{$cgp_mestna_galerija};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: #147e5c; // 4.6:1 (green #1ec08c is 2.2:1)
+}
+
+// stylelint-disable-next-line
+.#{$theme_galerija_jakopic} {
+	// General
+	--theme-font: 'DINNextLTW04', sans-serif;
+	--theme-background-color: var(--color-jakopic);
+	--theme-color: var(--color-white);
+	--theme-color-secondary: var(--color-jakopic-secondary);
+	--theme-border: #{rgba($cgp_white, 0.15)};
+	--theme-menu-border: #{rgba($cgp_white, 0.1)};
+
+	// Footer
+	--theme-footer-background: var(--color-jakopic);
+	--theme-footer-color: var(--color-white);
+	--theme-footer-border: #{rgba($cgp_white, 0.1)};
+
+	// Overwrites
+	--color-mgml: #{$cgp_jakopic_secondary};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: #9d7bbb; // 4.7:1 on the dark page (#60407d is 2.0:1)
+}
+
+// stylelint-disable-next-line
+.#{$theme_galerija_bezigrad},
+.#{$theme_bezigrajska_galerija_1},
+.#{$theme_bezigrajska_galerija_2} {
+	// General
+	--theme-font: 'avenir-next-lt-pro', sans-serif;
+	--theme-background-color: var(--color-bezigrad);
+	--theme-color: var(--color-gray-800);
+	--theme-border: #{rgba($cgp_black, 0.1)};
+	--theme-menu-border: #{rgba($cgp_black, 0.1)};
+
+	// Footer
+	--theme-footer-background: var(--color-bezigrad);
+	--theme-footer-color: var(--color-gray-800);
+	--theme-footer-border: #{rgba($cgp_black, 0.1)};
+
+	// Overwrites
+	--color-mgml: #{$cgp_bezigrad};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: #a65c0a; // 4.6:1 (orange #f28e1e is 2.2:1)
+}
+
+// stylelint-disable-next-line
+.#{$theme_galerija_vzigalica} {
+	// General
+	--theme-font: 'DINNextLTW04', sans-serif;
+	--theme-background-color: var(--color-vzigalice);
+	--theme-color: var(--color-gray-800);
+	--theme-border: #{rgba($cgp_black, 0.1)};
+	--theme-menu-border: #{rgba($cgp_black, 0.1)};
+
+	// Footer
+	--theme-footer-background: var(--color-vzigalice);
+	--theme-footer-color: var(--color-gray-800);
+	--theme-footer-border: #{rgba($cgp_black, 0.1)};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: var(--color-red); // 4.6:1 (#f03c43 is 3.6:1)
+}
+
+// stylelint-disable-next-line
+.#{$theme_cukrarna} {
+	// General
+	--theme-font: 'univers-next-pro', sans-serif;
+	--font-primary: 'univers-next-pro', sans-serif;
+	--theme-font-secondary: 'Saharin RB', sans-serif;
+	--theme-background-color: var(--color-white);
+	--theme-color: var(--color-gray-800);
+	--theme-border: var(--color-gray-200);
+	--theme-menu-border: var(--color-gray-200);
+
+	// Footer
+	--theme-footer-background: var(--color-white);
+	--theme-footer-color: var(--color-gray-800);
+	--theme-footer-border: var(--color-gray-200);
+
+	--color-mgml: #{$cgp_gray_800};
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: var(--color-mgml); // gray 800 here, 15:1
+}
+
+// stylelint-disable-next-line
+.#{$theme_premium_black} {
+	// Main colour for links and slider arrows: the theme colour, adjusted to WCAG AA (4.5:1) on the page
+	--theme-accent: var(--color-gray-200); // 15.7:1 on the dark page
+}

@@ -1,0 +1,1116 @@
+//*******************************************************************************
+// PLACEHOLDERS
+//*******************************************************************************
+
+// General extensions
+%content {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	pointer-events: none;
+}
+
+// ##################################################
+
+%reset_button {
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+	padding: 0;
+	font-size: inherit;
+	line-height: inherit;
+	font-weight: inherit;
+	color: inherit;
+	font-family: inherit;
+}
+
+// ##################################################
+
+%abs_pos_fullwidth {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	top: 0;
+	pointer-events: none;
+}
+
+// ##################################################
+
+%abs_pos_fullwidth_cursor {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	width: 100%;
+	top: 0;
+}
+
+// ##################################################
+
+%flex_center_center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+// ##################################################
+
+%sr_only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	white-space: nowrap;
+	border: 0;
+	visibility: inherit;
+	clip: rect(0, 0, 0, 0);
+}
+
+// ##################################################
+// FONT SIZES
+// ##################################################
+
+// General page text - Paragraph
+%page_text {
+	font-size: 16px;
+	line-height: 1.5;
+}
+
+// ##################################################
+
+%title {
+	line-height: 1.2;
+	color: var(--color-gray-800);
+	font-weight: 600;
+	letter-spacing: -0.05em;
+
+	// stylelint-disable-next-line
+	.#{$theme_premium_black} & {
+		color: var(--color-gray-200);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_vila_zlatica} & {
+		letter-spacing: -0.04em;
+
+		// Tablet P and down
+		@media #{$breakpoint-md-down} {
+			letter-spacing: -0.02em;
+		}
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mestna_galerija_ljubljana} & {
+		letter-spacing: -0.03em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} & {
+		color: inherit;
+	}
+}
+
+// ##################################################
+
+%title_h1 {
+	@extend %title;
+	font-size: 96px;
+	line-height: 1;
+	font-weight: 700;
+	font-family: var(--theme-font);
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 72px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 64px;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 60px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mgml} & {
+		font-weight: 600;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mestni_muzej_ljubljana} & {
+		font-weight: 400;
+		letter-spacing: -0.02em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_plecnikova_hisa} & {
+		@extend %fontsize80;
+		text-transform: uppercase;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_vila_zlatica} & {
+		text-transform: uppercase;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		@extend %fontsize64;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_vzigalica} &,
+	.#{$theme_galerija_jakopic} & {
+		@extend %fontsize80;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_bezigrad} &,
+	.#{$theme_bezigrajska_galerija_1} &,
+	.#{$theme_bezigrajska_galerija_2} & {
+		letter-spacing: -0.06em;
+		font-weight: 800;
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			font-size: 44px;
+		}
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		font-family: var(--theme-font-secondary);
+		font-size: 64px;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: -0.01em;
+		line-height: 0.9;
+
+		// Tablet P and down
+		@media #{$breakpoint-sm-down} {
+			font-size: 40px;
+		}
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			font-size: 32px;
+			line-height: 1.2;
+		}
+	}
+}
+
+// ##################################################
+
+%title_h2 {
+	@extend %title;
+	font-size: 72px;
+	line-height: 1;
+	font-weight: 700;
+	font-family: var(--theme-font);
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 66px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 50px;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 40px;
+		line-height: normal;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 30px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		color: var(--color-arheopark-turquoise);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_vila_zlatica} &,
+	.#{$theme_plecnikova_hisa} & {
+		@extend %fontsize64;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mgml} & {
+		line-height: 1.2;
+		font-weight: 600;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		@extend %title_h4;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_bezigrad} &,
+	.#{$theme_bezigrajska_galerija_1} &,
+	.#{$theme_bezigrajska_galerija_2} & {
+		letter-spacing: -0.06em;
+		font-weight: 800;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_vzigalica} & {
+		@extend %fontsize64;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mestni_muzej_ljubljana} & {
+		font-weight: 400;
+		letter-spacing: -0.02em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		@extend %title_h2_cukrarna;
+	}
+}
+
+%title_h2_cukrarna {
+	@extend %title;
+	font-size: 36px;
+	font-weight: 600;
+	line-height: 1;
+	letter-spacing: -0.02em;
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 24px;
+		letter-spacing: 0;
+		line-height: 1.15;
+	}
+}
+
+// ##################################################
+
+%title_h3 {
+	@extend %title;
+	font-family: var(--theme-font);
+	font-size: 60px;
+	line-height: 1;
+	font-weight: 700;
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 54px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 45px;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 42px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 36px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mgml} & {
+		font-weight: 600;
+		line-height: 1.2;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mestni_muzej_ljubljana} & {
+		font-weight: 400;
+		letter-spacing: -0.02em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_bezigrad} &,
+	.#{$theme_bezigrajska_galerija_1} &,
+	.#{$theme_bezigrajska_galerija_2} & {
+		letter-spacing: -0.06em;
+		font-weight: 800;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		font-size: 24px;
+		font-weight: 600;
+		line-height: 1.14;
+		letter-spacing: 0;
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			font-size: 20px;
+		}
+	}
+}
+
+// ##################################################
+
+%title_h4 {
+	@extend %title;
+	font-size: 48px;
+	line-height: 1;
+	letter-spacing: -0.04em;
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 44px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 40px;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 38px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 32px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		letter-spacing: 0.02em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		font-size: 20px;
+		font-weight: 600;
+		line-height: 1.2;
+		letter-spacing: 0;
+	}
+}
+
+// ##################################################
+
+%title_h5 {
+	@extend %title;
+	font-size: 36px;
+	letter-spacing: -0.04em;
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 30px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 24px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.5;
+		letter-spacing: 0;
+	}
+}
+
+// ##################################################
+
+%title_h6 {
+	@extend %title;
+	font-size: 30px;
+	letter-spacing: -0.04em;
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 28px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 24px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		@extend %title_h6_cukrarna;
+	}
+}
+
+%title_h6_cukrarna {
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.5;
+	letter-spacing: 0;
+}
+
+// ##################################################
+
+%fontsize128 {
+	font-size: 128px;
+	line-height: 1;
+	letter-spacing: -0.06em;
+	font-family: var(--theme-font);
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 100px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 80px;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 60px;
+		letter-spacing: normal;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		@extend %fontsize80;
+		letter-spacing: 0.02em;
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} &,
+	.#{$theme_plecnikova_hisa} &,
+	.#{$theme_vila_zlatica} &,
+	.#{$theme_cukrarna} & {
+		text-transform: uppercase;
+		letter-spacing: -0.04em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_bezigrad} &,
+	.#{$theme_bezigrajska_galerija_1} &,
+	.#{$theme_bezigrajska_galerija_2} & {
+		font-weight: 800;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mestni_muzej_ljubljana} & {
+		font-weight: 400;
+		letter-spacing: -0.02em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		font-family: var(--theme-font-secondary);
+		font-size: 64px;
+		font-weight: 400;
+		text-transform: uppercase;
+		letter-spacing: -0.01em;
+		line-height: 1;
+
+		// Tablet P and down
+		@media #{$breakpoint-sm-down} {
+			font-size: 48px;
+		}
+	}
+}
+
+// ##################################################
+
+%fontsize96 {
+	font-size: 96px;
+	font-weight: 700;
+	letter-spacing: -0.04em;
+	line-height: 1;
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 72px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 64px;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 55px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 45px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_plecnikova_hisa} & {
+		text-transform: uppercase;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mgml} & {
+		font-weight: 600;
+	}
+}
+// ##################################################
+
+%fontsize80 {
+	font-size: 80px;
+	line-height: 1;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	font-family: var(--theme-font);
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 75px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 60px;
+		line-height: 1.2;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 50px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 44px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mgml} & {
+		font-weight: 600;
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			font-size: 32px;
+		}
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		text-transform: uppercase;
+		font-weight: 600;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_plecnikova_hisa} & {
+		text-transform: uppercase;
+		letter-spacing: -0.04em;
+		line-height: 1;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mestna_galerija_ljubljana} & {
+		letter-spacing: -0.03em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} & {
+		text-transform: uppercase;
+		letter-spacing: -0.04em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_bezigrad} &,
+	.#{$theme_bezigrajska_galerija_1} &,
+	.#{$theme_bezigrajska_galerija_2} & {
+		font-weight: 800;
+		letter-spacing: -0.06em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_vzigalica} & {
+		letter-spacing: -0.06em;
+	}
+}
+
+// ##################################################
+
+%fontsize64 {
+	font-size: 64px;
+	line-height: 1;
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		font-size: 54px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 45px;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 42px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 36px;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_vila_zlatica} &,
+	.#{$theme_plecnikova_hisa} & {
+		text-transform: uppercase;
+		font-weight: 700;
+		letter-spacing: -0.04em;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.02em;
+	}
+}
+
+// ##################################################
+
+%fontsize32 {
+	font-size: 32px;
+	line-height: 1.2;
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 24px;
+	}
+}
+
+// ##################################################
+
+%fontsize24 {
+	font-size: 24px;
+	letter-spacing: -0.04em;
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		font-size: 22px;
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		font-size: 20px;
+	}
+}
+
+// ##################################################
+
+%fontsize20 {
+	font-size: 20px;
+	line-height: normal;
+	letter-spacing: -0.04em;
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		font-size: 18px;
+	}
+}
+
+// ##################################################
+
+%fontsize18 {
+	font-size: 18px;
+}
+
+// ##################################################
+
+%fontsize16 {
+	font-size: 16px;
+}
+
+// ##################################################
+
+%fontsize14 {
+	font-size: 14px;
+	line-height: 1.5;
+}
+
+// ##################################################
+
+%fontsize12 {
+	font-size: 12px;
+}
+
+// ##################################################
+
+%headingxl {
+	@extend %fontsize20;
+}
+
+// ##################################################
+
+%heading2xl {
+	@extend %fontsize24;
+}
+
+// ##################################################
+
+%heading3xl {
+	@extend %title_h6;
+}
+
+// ##################################################
+
+%heading4xl {
+	@extend %title_h5;
+}
+
+// ##################################################
+
+%heading5xl {
+	@extend %title_h4;
+}
+
+// ##################################################
+
+%heading6xl {
+	@extend %title_h3;
+}
+
+// ##################################################
+
+%heading7xl {
+	@extend %title_h2;
+}
+
+// ##################################################
+
+%heading8xl {
+	@extend %title_h1;
+}
+
+// ##################################################
+
+%heading9xl {
+	@extend %fontsize128;
+}
+
+// ##################################################
+// Focus styles
+// ##################################################
+
+%focus_style {
+	outline-color: var(--color-focus);
+	outline-style: solid;
+	outline-offset: 0;
+	outline-width: 2.5px;
+	transition: outline-offset 0.2s linear;
+}
+
+// ##################################################
+// ##################################################
+
+%inherit_textstyles {
+	color: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+	text-transform: inherit;
+	text-align: inherit;
+	font-style: inherit;
+	font-family: inherit;
+}
+
+// ##################################################
+
+%backface {
+	overflow: hidden;
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+}
+
+// ##################################################
+
+%bg_video {
+	position: absolute;
+	min-width: 100%;
+	min-height: 100%;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	background-color: $cgp_black;
+}
+
+// ##################################################
+
+%hover_lines {
+	// Directional underline. The line is always full width and is revealed with clip-path:
+	// - data-line="left"  : hidden state is collapsed on the left edge
+	// - data-line="right" : hidden state is collapsed on the right edge
+	// source/scripts/02_hover_lines.js sets data-line to the side the pointer entered or left from, and toggles
+	// .is-line-on, so the line grows from the side the pointer comes in from and retracts toward the side it leaves to.
+
+	// ##################################################
+	// Bottom line
+
+	// stylelint-disable-next-line
+	&::before {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		height: 1px;
+		background-color: currentColor;
+		pointer-events: none;
+		clip-path: inset(0 100% 0 0);
+	}
+
+	// stylelint-disable-next-line
+	&[data-line='right'] {
+		&::before {
+			clip-path: inset(0 0 0 100%);
+		}
+	}
+
+	// ##################################################
+
+	// One layer only. Two layers with different speeds drift apart when the side flips mid-animation and show two lines.
+	// Retract (base state) is shorter than grow (.is-line-on), so the line leaves faster than it arrives.
+	// $ease_line is a strong ease-out: the line starts moving the moment the pointer arrives.
+	$ease_line: cubic-bezier(0.23, 1, 0.32, 1);
+
+	// stylelint-disable-next-line
+	&::before {
+		transition: clip-path 0.2s $ease_line;
+	}
+
+	// stylelint-disable-next-line
+	&.#{$class_active},
+	&.active,
+	&.is-line-on {
+		// stylelint-disable-next-line
+		&::before {
+			clip-path: inset(0 0 0 0);
+			transition: clip-path 0.3s $ease_line;
+		}
+	}
+
+	// Used by the script to move the hidden state to the other side without animating it.
+	// Must stay after .is-line-on so it wins at equal specificity.
+	// stylelint-disable-next-line
+	&.is-line-reset {
+		&::before {
+			transition: none;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&::before {
+			transition: none;
+		}
+	}
+}
+
+// ##################################################
+
+%hover_lines_multiline {
+	background-image: linear-gradient(var(--color-black), var(--color-black));
+	background-size: 0% 2px;
+	background-repeat: no-repeat;
+	transition: background-size 0.3s ease, color 0.3s ease;
+	background-position: 0 100%;
+
+	// stylelint-disable-next-line
+	&:hover {
+		background-size: 100% 2px;
+	}
+}
+
+%location_tags {
+	// stylelint-disable-next-line
+	&.black {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-gray-800);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.green {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-mestna-galerija);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.green-dark {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-arheopark-turquoise);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.orange {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-vzigalice);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.dark-orange {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-bezigrad);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.red {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: $cgp_mgml;
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.dark-red {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-tobacna);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.beige {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-vila-zlatica);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.dark-beige {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-plecnikova);
+		}
+	}
+
+	// stylelint-disable-next-line
+	&.purple {
+		// stylelint-disable-next-line
+		&:before {
+			background-color: var(--color-jakopic-secondary);
+		}
+	}
+}
+
+%theme_arheopark_emona_title {
+	color: var(--color-arheopark-turquoise);
+	text-transform: uppercase;
+	letter-spacing: 0.02em;
+	font-family: var(--theme-font);
+}
+
+// White Button
+%white_button {
+	background-color: var(--color-white);
+	color: var(--color-gray-950);
+
+	// stylelint-disable-next-line
+	&::before {
+		background-color: var(--color-mgml);
+	}
+
+	// stylelint-disable-next-line
+	&:hover {
+		background-color: var(--color-white);
+		color: var(--color-white);
+	}
+}
+
+// White on hover
+%white_button_on_hover {
+	// stylelint-disable-next-line
+	&::before {
+		background-color: var(--color-white);
+	}
+
+	// stylelint-disable-next-line
+	&:hover {
+		color: var(--color-gray-800);
+	}
+}
+
+// Red Button
+%red_button {
+	background-color: var(--color-mestni-muzej);
+	color: var(--color-white);
+
+	// stylelint-disable-next-line
+	&::before {
+		background-color: var(--color-white);
+	}
+
+	// Only with a mouse: on touch screens a tap would leave it stuck
+	@media (hover: hover) {
+		// stylelint-disable-next-line
+		&:hover {
+			background-color: var(--color-mestni-muzej);
+			color: var(--color-gray-800);
+		}
+	}
+}
+
+// Black Button
+%black_button {
+	background-color: var(--color-gray-800);
+	color: var(--color-white);
+
+	// stylelint-disable-next-line
+	&::before {
+		background-color: var(--color-gray-700);
+	}
+
+	// stylelint-disable-next-line
+	&:hover {
+		color: var(--color-white);
+	}
+}
+
+%border_full_width {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 0;
+	width: 100vw;
+	transform: translate(-50%, 0);
+	height: 1px;
+	background-color: var(--color-gray-200);
+}

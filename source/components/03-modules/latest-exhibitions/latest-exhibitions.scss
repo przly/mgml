@@ -1,0 +1,317 @@
+// **************************************************
+// Latest Exhibitions
+// **************************************************
+
+@import '../../../scss/import';
+
+.latest-exhibitions {
+	position: relative;
+
+	// ##################################################
+
+	&__slider {
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+
+		// ##################################################
+
+		&-nav {
+			order: -1;
+			margin-bottom: 28px;
+
+			// Mobile
+			@media #{$breakpoint-xs-only} {
+				order: 99;
+				margin: 24px 0 0;
+				position: relative;
+				display: none;
+			}
+
+			// ##################################################
+
+			.container {
+				display: flex;
+				justify-content: space-between;
+				gap: 20px;
+				align-items: center;
+			}
+		}
+
+		// ##################################################
+
+		&-arrows {
+			width: 100%;
+			max-width: 720px;
+			display: flex;
+			justify-content: space-between;
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				max-width: 540px;
+			}
+
+			// Tablet P and down
+			@media #{$breakpoint-sm-down} {
+				max-width: 500px;
+			}
+
+			// Mobile
+			@media #{$breakpoint-xs-only} {
+				max-width: 100%;
+			}
+		}
+
+		// ##################################################
+
+		.card__image {
+			// Desktop
+			@media #{$breakpoint-md-up} {
+				padding-bottom: 50%;
+			}
+
+			// Mobile
+			@media #{$breakpoint-xs-only} {
+				padding-bottom: 100%;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__divider {
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			width: calc(100% + 48px);
+			margin-left: -24px;
+			height: 1px;
+			background-color: var(--color-gray-200);
+			margin-top: 40px;
+		}
+	}
+
+	// ##################################################
+
+	.swiper-slide {
+		width: 720px;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			width: 540px;
+		}
+
+		// Tablet P and down
+		@media #{$breakpoint-sm-down} {
+			width: 500px;
+		}
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			width: 286px;
+		}
+	}
+
+	// ##################################################
+
+	.swiper {
+		overflow: visible;
+		// Swiper's slide transition (buttons and swipe release). Its default is plain `ease`, which starts slowly.
+		// A strong ease-out moves the cards the moment the button is pressed and lets them settle softly.
+		--swiper-wrapper-transition-timing-function: #{$ease_out_strong};
+	}
+
+	// ##################################################
+
+	.swiper,
+	.swiper-wrapper {
+		min-width: 0;
+	}
+
+	// ##################################################
+
+	.margin--96 {
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			height: 40px;
+		}
+	}
+
+	// ##################################################
+
+	.swiper-pagination {
+		position: relative;
+		width: auto;
+		height: auto;
+		left: 0;
+		bottom: 0;
+		margin-left: auto;
+		display: flex;
+		align-items: center;
+		gap: 0;
+		// Same width for every digit, so the counter does not shift when the number changes
+		font-variant-numeric: tabular-nums;
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+
+	// ##################################################
+	// Rolling current number of the counter (built and animated in latest-exhibitions.js).
+	// The old and the new number share one grid cell, and the cell clips them, so they roll through a window
+	// one line tall instead of floating over the slash.
+
+	.slider-counter__current {
+		display: inline-grid;
+		overflow: hidden;
+		// Room on the sides for the blur, so it is not cut off in a hard vertical edge. The negative margin keeps
+		// the number where it was.
+		padding-inline: 6px;
+		margin-inline: -6px;
+	}
+
+	.slider-counter__number {
+		grid-area: 1 / 1;
+		text-align: right;
+	}
+
+	// ##################################################
+
+	.section-header__content {
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			left: 0;
+			padding: 0 24px;
+			align-items: center;
+		}
+	}
+
+	// ##################################################
+
+	&.has-more-btn {
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			padding-bottom: 80px;
+		}
+	}
+
+	// ##################################################
+
+	&--default {
+		// ##################################################
+
+		.latest-exhibitions__row {
+			display: grid;
+			grid-gap: 16px 20px;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+
+			// Mobile
+			@media #{$breakpoint-xs-only} {
+				grid-template-columns: 1fr;
+				grid-gap: 32px;
+			}
+
+			.card {
+				padding-bottom: 16px;
+				border-bottom: 1px solid var(--color-gray-200);
+
+				// Mobile
+				@media #{$breakpoint-xs-only} {
+					border: 0;
+					padding-bottom: 0;
+				}
+
+				// stylelint-disable-next-line
+				.#{$theme_premium_black} & {
+					border-color: var(--color-gray-800);
+				}
+
+				// stylelint-disable-next-line
+				.#{$theme_galerija_jakopic} & {
+					border-color: var(--theme-border);
+				}
+
+				&.no-border {
+					// Tablet P and up
+					@media #{$breakpoint-sm-up} {
+						padding-bottom: 0;
+						border-bottom: 0;
+					}
+				}
+			}
+		}
+
+		// ##################################################
+
+		.card {
+			// Tablet P and up
+			@media #{$breakpoint-sm-up} {
+				max-width: 100%;
+			}
+
+			&__text {
+				// Mobile
+				@media #{$breakpoint-xs-only} {
+					font-size: 12px;
+					line-height: 1.5;
+				}
+			}
+
+			&__tags-top {
+				// Mobile
+				@media #{$breakpoint-xs-only} {
+					top: 12px;
+				}
+			}
+		}
+	}
+
+	// ##################################################
+
+	&--cukrarna {
+		.card--size-large {
+			grid-column: span 2;
+
+			// Tablet P and down
+			@media #{$breakpoint-sm-down} {
+				grid-column: span 1;
+			}
+		}
+
+		.latest-exhibitions__row {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			grid-gap: 48px 20px;
+
+			// Small desktop and down
+			@media #{$breakpoint-lg-down} {
+				grid-gap: 24px;
+			}
+
+			// Mobile
+			@media #{$breakpoint-xs-only} {
+				grid-template-columns: 1fr;
+			}
+		}
+
+		.section-header__content {
+			// Mobile
+			@media #{$breakpoint-xs-only} {
+				position: relative;
+				padding: 0;
+				align-items: flex-start;
+			}
+		}
+
+		.card {
+			max-width: 100%;
+		}
+	}
+}

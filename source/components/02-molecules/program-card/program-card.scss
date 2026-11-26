@@ -1,0 +1,274 @@
+// **************************************************
+// Program Card
+// **************************************************
+
+@import '../../../scss/import';
+
+.program-card {
+	max-width: 1248px;
+	width: 100%;
+	margin: 0 auto;
+	display: grid;
+	grid-template-columns: 32.3% 1fr;
+	grid-gap: 125px;
+	align-items: center;
+	position: relative;
+	padding: 20px 0;
+	border-top: 1px solid var(--color-gray-200);
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		grid-gap: 120px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		grid-gap: 40px;
+		grid-template-columns: 41.66% 1fr;
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		grid-template-columns: 1fr;
+		grid-gap: 16px;
+		border-top: 0;
+		padding: 44px 0;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_premium_black} & {
+		border-color: var(--color-gray-800);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} & {
+		border-color: var(--theme-border);
+	}
+
+	// ##################################################
+	// Bottom mobile border
+
+	&::after {
+		// Tablet P and down
+		@media #{$breakpoint-sm-down} {
+			content: '';
+			width: 100vw;
+			left: -24px;
+			position: absolute;
+			bottom: 0;
+			height: 1px;
+			background-color: var(--color-gray-200);
+		}
+	}
+
+	// ##################################################
+
+	&:first-child {
+		padding-top: 0;
+		border-top: 0;
+	}
+
+	// ##################################################
+
+	&:last-child {
+		padding-bottom: 0;
+
+		&::after {
+			display: none;
+		}
+	}
+
+	// ##################################################
+
+	&__image {
+		position: relative;
+		display: block;
+		height: 0;
+		padding-bottom: 55%;
+
+		// Tablet P and down
+		@media #{$breakpoint-sm-down} {
+			padding-bottom: 52%;
+		}
+
+		img {
+			transition: opacity 0.3s ease;
+		}
+	}
+
+	// ##################################################
+
+	&__logo {
+		width: 52px;
+		height: 34px;
+		background-color: var(--color-gray-800);
+		-webkit-mask-size: contain;
+		mask-size: contain;
+		-webkit-mask-repeat: no-repeat;
+		mask-repeat: no-repeat;
+		-webkit-mask-position: center;
+		mask-position: center;
+		transition: background-color 0.3s ease;
+		margin-bottom: 2px;
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			margin-bottom: 8px;
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			background-color: var(--color-gray-400);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: var(--theme-background-color);
+		}
+	}
+
+	// ##################################################
+
+	.title {
+		transition: color 0.3s ease;
+		margin-bottom: 15px;
+		line-height: 1;
+	}
+
+	// ##################################################
+
+	&__text {
+		display: block;
+		color: var(--color-gray-400);
+	}
+
+	// ##################################################
+
+	&__content {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		grid-gap: 125px;
+		align-items: flex-end;
+
+		// Small desktop and down
+		@media #{$breakpoint-lg-down} {
+			grid-gap: 120px;
+		}
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			grid-gap: 60px;
+		}
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			grid-template-columns: 1fr;
+			grid-gap: 16px;
+		}
+	}
+
+	// ##################################################
+
+	&__link-list {
+		// ##################################################
+
+		.link-with-arrow {
+			position: relative;
+			z-index: 3;
+			width: 100%;
+			padding: 10px 0;
+
+			// Tablet P and down
+			@media #{$breakpoint-sm-down} {
+				width: auto;
+				min-width: 225px;
+			}
+		}
+
+		// ##################################################
+
+		&--single {
+			.link-with-arrow {
+				pointer-events: none;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&.has-link:hover {
+		.program-card__image {
+			img {
+				opacity: 0.9;
+			}
+		}
+
+		// ##################################################
+
+		.program-card__logo {
+			background-color: var(--color-mgml);
+
+			// stylelint-disable-next-line
+			.#{$theme_premium_black} & {
+				background-color: var(--color-mgml);
+			}
+
+			// stylelint-disable-next-line
+			.#{$theme_galerija_jakopic} & {
+				background-color: var(--theme-background-color);
+			}
+		}
+
+		// ##################################################
+
+		.title {
+			color: var(--color-mgml);
+		}
+
+		// ##################################################
+
+		.program-card__link-list--single {
+			.link-with-arrow {
+				color: var(--color-red);
+
+				// stylelint-disable-next-line
+				.#{$theme_mestna_galerija_ljubljana} & {
+					color: var(--color-mestna-galerija);
+				}
+
+				// ##################################################
+
+				@include link-with-arrow-active;
+
+				// ##################################################
+
+				.icon:before {
+					background-color: currentColor;
+				}
+			}
+		}
+	}
+
+	// ##################################################
+
+	&--reverse {
+		// Tablet L and up
+		@media #{$breakpoint-md-up} {
+			grid-template-columns: 1fr 41.66%;
+		}
+
+		// Small desktop and up
+		@media #{$breakpoint-lg-up} {
+			grid-template-columns: 1fr 32.3%;
+		}
+
+		// ##################################################
+
+		.program-card__content {
+			// Tablet L and up
+			@media #{$breakpoint-md-up} {
+				order: -1;
+			}
+		}
+	}
+}

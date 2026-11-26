@@ -1,0 +1,640 @@
+// **************************************************
+// Site Header
+// **************************************************
+
+@import '../../../scss/import';
+
+.site-header {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: #{$zindex_header};
+	color: var(--theme-color, $cgp_gray_800);
+	background-color: var(--theme-background-color, $cgp_gray_100);
+	border-bottom: 1px solid var(--theme-border, rgba($cgp_black, 0.1));
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		// Hide and show on scroll with transform, not top: top re-lays out the header on every frame mid-scroll.
+		// -100% is the header's own border-box height, so it clears the 1px border as well.
+		// The transform is only set while the header is hidden: a transform makes the header the containing block of
+		// its position: fixed children (the mobile menu panel), which must stay positioned against the viewport.
+		transition: transform 0.3s ease;
+
+		// stylelint-disable-next-line
+		.#{$class_scrolled} & {
+			transform: translateY(calc(-100% - 1px));
+		}
+
+		// stylelint-disable-next-line
+		.#{$class_scrolled_up} &,
+		.#{$class_open_menu} & {
+			transform: none;
+		}
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		border-color: var(--color-arheopark-turquoise);
+	}
+
+	// ##################################################
+
+	&__top {
+		padding: 6px 0;
+		flex-direction: column;
+		min-height: 30px;
+		color: var(--theme-top-bar-color, $cgp_white);
+		background-color: var(--theme-top-bar-background, $cgp_gray_800);
+
+		// stylelint-disable-next-line
+		.#{$theme_arheopark_emona} & {
+			color: var(--color-gray-800);
+			background-color: var(--color-arheopark-yellow);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: var(--color-jakopic);
+		}
+
+		// Mobile
+		@media #{$breakpoint-xs-only} {
+			text-align: left;
+		}
+
+		// ##################################################
+
+		a {
+			text-decoration: underline;
+		}
+
+		// ##################################################
+
+		p {
+			display: inline;
+		}
+
+		// ##################################################
+
+		.icon {
+			vertical-align: middle;
+			width: 8px;
+			height: 10px;
+			padding-left: 24px;
+			display: none;
+
+			// stylelint-disable-next-line
+			.#{$theme_arheopark_emona} & {
+				display: inline-block;
+			}
+
+			&::before {
+				background-color: currentColor;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			padding: 12px 0;
+			min-height: 68px;
+		}
+	}
+
+	// ##################################################
+
+	&__logo {
+		position: relative;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			max-width: 140px;
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_mgml} & {
+			max-width: 78px;
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_arheopark_emona} & {
+			max-width: 164px;
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				max-width: 124px;
+			}
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			max-width: 140px;
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				max-width: 120px;
+			}
+		}
+
+		// ##################################################
+
+		img {
+			// width: 100%;
+			object-fit: contain;
+		}
+
+		// ##################################################
+
+		&--hover {
+			position: absolute;
+			left: 0;
+			opacity: 0;
+			top: 0;
+			z-index: 1;
+		}
+
+		// ##################################################
+
+		&.has-hover-logo:hover {
+			.site-header__logo--default {
+				opacity: 0;
+			}
+
+			.site-header__logo--hover {
+				opacity: 1;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__right {
+		display: flex;
+		align-items: center;
+		gap: 24px;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			gap: 12px;
+		}
+	}
+
+	// ##################################################
+
+	&__left {
+		display: flex;
+		align-items: center;
+		gap: 48px;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			gap: 16px;
+		}
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			gap: 32px;
+		}
+	}
+
+	// ##################################################
+
+	&__icon {
+		// ##################################################
+
+		.icon {
+			transition: none;
+
+			&::before {
+				transition: none;
+				background-color: currentColor;
+
+				// stylelint-disable-next-line
+				.#{$theme_mgml} & {
+					background-color: var(--color-gray-500);
+				}
+			}
+		}
+
+		// ##################################################
+
+		&:hover {
+			.icon {
+				opacity: 1;
+
+				&::before {
+					background-color: var(--color-red);
+				}
+
+				// stylelint-disable-next-line
+				.#{$theme_mgml} & {
+					&::before {
+						background-color: var(--color-red);
+					}
+				}
+			}
+		}
+	}
+
+	&__search {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+
+		// Tablet L and down: 44px touch target
+		@media #{$breakpoint-md-down} {
+			width: 44px;
+			height: 44px;
+			margin-right: -1px; // the glyph has 3px of built-in padding; this puts its ink 24px from the button, same as the hamburger bars
+		}
+
+		.icon {
+			width: 18px;
+			height: 18px;
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				width: 24px;
+				height: 24px;
+			}
+		}
+
+		// stylelint-disable-next-line
+		.icon::before,
+		.#{$theme_mgml} & .icon::before {
+			background-color: var(--color-gray-800);
+		}
+
+		&:hover .icon::before,
+		.#{$theme_mgml} &:hover .icon::before {
+			background-color: var(--color-red);
+		}
+	}
+
+	.container {
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			max-width: 100%;
+			padding: 0 16px;
+		}
+	}
+
+	// ##################################################
+
+	.btn {
+		background-color: var(--color-gray-800);
+		color: var(--color-white);
+
+		// Tablet L and down: extend the hit area to 44px without changing the visual size
+		@media #{$breakpoint-md-down} {
+			position: relative;
+
+			&::after {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 0;
+				right: 0;
+				transform: translateY(-50%);
+				min-height: 44px;
+				height: 44px;
+			}
+		}
+
+		&:hover {
+			background-color: var(--color-gray-950);
+		}
+
+		// ##################################################
+
+		// stylelint-disable-next-line
+		.#{$theme_arheopark_emona} & {
+			@extend %black_button;
+		}
+
+		// ##################################################
+		// White on hover
+
+		// stylelint-disable-next-line
+		.#{$theme_mestni_muzej_ljubljana} & {
+			@extend %white_button_on_hover;
+		}
+
+		// ##################################################
+		// White Button
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			@extend %white_button;
+		}
+
+		// ##################################################
+		// Red Button
+
+		// stylelint-disable-next-line
+		.#{$theme_mestni_muzej_ljubljana} & {
+			@extend %red_button;
+		}
+	}
+
+	// ##################################################
+
+	&__link {
+		text-transform: uppercase;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 1.5;
+		position: relative;
+		@extend %hover_lines;
+		transition: none;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			display: none;
+		}
+
+		// stylelint-disable-next-line
+		&:hover {
+			color: var(--color-red);
+		}
+	}
+
+	// ##################################################
+
+	&__large-logo {
+		padding: 12px 0 8px;
+
+		img {
+			width: 100%;
+			object-fit: contain;
+			height: auto;
+		}
+
+		picture {
+			width: 100%;
+		}
+	}
+
+	// ##################################################
+
+	&--standalone {
+		border: 0;
+		position: relative;
+
+		.site-header__inner {
+			min-height: 75px;
+			padding: 8px 0;
+		}
+	}
+
+	// ##################################################
+
+	&--cukrarna {
+		background-color: var(--color-white);
+		// transform is the Tablet L and down hide on scroll (see .site-header above); this list overrides that one.
+		// margin-top stays a layout animation on purpose: a transform here would trap the fixed desktop dropdowns.
+		transition: margin-top 0.2s ease, transform 0.2s ease;
+
+		// Desktop and up
+		@media #{$breakpoint-lg-up} {
+			border: 0;
+		}
+
+		// Desktop and up
+		@media #{$breakpoint-lg-up} {
+			// stylelint-disable-next-line
+			.#{$class_scrolled} & {
+				margin-top: calc(var(--large-logo-height, 0px) * -1);
+			}
+		}
+
+		.site-header__inner {
+			// Desktop and up
+			@media #{$breakpoint-lg-up} {
+				border-bottom: 1px solid var(--theme-border, rgba($cgp_black, 0.1));
+			}
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				padding: 8px 0;
+				min-height: 46px;
+			}
+		}
+
+		.site-header__left {
+			position: relative;
+			gap: 0;
+			overflow: hidden;
+			padding: 0 2px;
+			transition: padding-left 0.3s ease;
+
+			// stylelint-disable-next-line
+			.#{$class_scrolled} & {
+				// Desktop and up
+				@media #{$breakpoint-lg-up} {
+					padding-left: 244px;
+					transition-delay: 0.4s;
+				}
+			}
+		}
+
+		.site-header__right {
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				width: 100%;
+			}
+		}
+
+		.site-header__right-separator {
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				margin-left: auto;
+			}
+		}
+
+		.site-header__logo {
+			position: absolute;
+			left: 0;
+			transform: translateX(-100%);
+			transition: transform 0.3s ease;
+			max-width: 244px;
+			padding-right: 40px;
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				display: none;
+			}
+
+			// stylelint-disable-next-line
+			.#{$class_scrolled} & {
+				// Desktop and up
+				@media #{$breakpoint-lg-up} {
+					transition-delay: 0.4s;
+					transform: translateX(0);
+				}
+			}
+		}
+
+		.hamburger {
+			gap: 10px;
+			align-items: center;
+			flex-direction: row;
+			width: auto;
+			height: auto;
+			margin-right: 10px;
+			order: 99;
+		}
+
+		.site-header__search {
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				order: 9;
+			}
+		}
+
+		.site-header__link {
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				display: block;
+				order: -1;
+
+				&--trade {
+					display: none;
+				}
+			}
+		}
+
+		.language-switch {
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				display: flex;
+				order: -1;
+			}
+		}
+	}
+}
+
+.container {
+	// Desktop and up
+	@media #{$breakpoint-lg-up} {
+		max-width: 1462px;
+		padding: 0 10px;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		max-width: 100%;
+		padding: 0 12px;
+	}
+}
+
+//*******************************************************************************
+// MENU HAMBURGER
+//*******************************************************************************
+
+.hamburger {
+	cursor: pointer;
+	z-index: 12;
+	position: relative;
+	flex-direction: column;
+	transition: transform 0.16s ease-out;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	gap: 5px;
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		display: flex;
+		min-width: 44px;
+		min-height: 44px;
+		margin-right: -4px; // 44px target, icon stays where it was
+	}
+
+	// Press feedback
+	&:active {
+		transform: scale(0.92);
+	}
+
+	// ##################################################
+
+	&__text {
+		font-size: 14px;
+		font-weight: 600;
+		text-transform: uppercase;
+		min-width: 54px;
+
+		&--open {
+			display: block;
+
+			// stylelint-disable-next-line
+			.#{$class_open_menu} & {
+				display: none;
+			}
+		}
+
+		&--close {
+			display: none;
+
+			// stylelint-disable-next-line
+			.#{$class_open_menu} & {
+				display: block;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__bars {
+		display: flex;
+		flex-direction: column;
+		gap: 5px;
+	}
+
+	// ##################################################
+
+	// Menu Bar
+	&__bar {
+		background-color: var(--theme-color, $cgp_gray_800);
+		height: 2px;
+		display: block;
+		width: 20px;
+		pointer-events: none;
+		border-radius: 8px;
+		position: relative;
+		transition: background-color 0.3s ease, transform 0.22s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.22s ease;
+
+		// ##################################################
+
+		// stylelint-disable-next-line
+		.#{$class_open_menu} & {
+			// stylelint-disable-next-line
+			&:first-child {
+				transform: translateY(7px) rotate(225deg);
+			}
+
+			// stylelint-disable-next-line
+			&:nth-child(2) {
+				transform: scale(0.4);
+				opacity: 0;
+			}
+
+			// stylelint-disable-next-line
+			&:last-child {
+				transform: translateY(-7px) rotate(315deg);
+			}
+		}
+	}
+}

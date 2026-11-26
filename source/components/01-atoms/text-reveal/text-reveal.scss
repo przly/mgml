@@ -1,0 +1,63 @@
+// **************************************************
+// Text Reveal
+// Mask CSS of the Specto text-reveal engine (github.com/przly/Specto_TextReveal, src/styles.css), used by
+// text-reveal.js. Class names: .hero-line-mask -> .text-reveal__line-mask, .hero-line -> .text-reveal__line,
+// .specto-paragraph-word-mode -> .text-reveal--word-mode, .hero-word-wrap -> .text-reveal__word-wrap,
+// .hero-word -> .text-reveal__word, .hero-word-space -> .text-reveal__space.
+// **************************************************
+
+@import '../../../scss/import';
+
+.text-reveal {
+	// Clip-box padding below each line or word, so descenders aren't clipped
+	--text-reveal-mask-space: 0.65em;
+}
+
+// Word mode's children are inline-block: zero the container's own strut so only the words' line-height counts
+.text-reveal--word-mode {
+	line-height: 0;
+}
+
+.text-reveal__line-mask,
+.text-reveal__word-wrap,
+.text-reveal__space {
+	line-height: var(--text-reveal-line-height, normal);
+}
+
+.text-reveal__word-wrap {
+	display: inline-block;
+	overflow: clip;
+	// Not baseline, as in the engine: Safari puts the baseline of an overflow: clip inline-block at its bottom margin
+	// edge, which sits the whole word above the text baseline and adds ~5px to every line (a 14px/21px paragraph gets
+	// 26px lines). The word's margin box is exactly one line-height tall, so top-aligning it lands the text in the same
+	// place in every browser.
+	vertical-align: top;
+	padding-bottom: var(--text-reveal-mask-space);
+	margin-bottom: calc(var(--text-reveal-mask-space) * -1);
+	// Buffer for glyph ink that overhangs its advance width on the right (a "y", a "?")
+	padding-right: 0.15em;
+	margin-right: -0.15em;
+}
+
+.text-reveal__word {
+	display: inline-block;
+	transform-origin: 50% 100%;
+}
+
+.text-reveal__space {
+	display: inline;
+}
+
+// Line mode: one block-level mask per detected line; the line itself never wraps again, its breaks are measured
+.text-reveal__line-mask {
+	display: block;
+	overflow: clip;
+	padding-bottom: var(--text-reveal-mask-space);
+	margin-bottom: calc(var(--text-reveal-mask-space) * -1);
+}
+
+.text-reveal__line {
+	display: block;
+	white-space: nowrap;
+	transform-origin: 50% 100%;
+}

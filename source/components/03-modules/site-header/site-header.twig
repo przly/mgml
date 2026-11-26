@@ -1,0 +1,163 @@
+{% include '@modules/noscript/noscript.twig' with {
+	title: no_script.title,
+	text: no_script.text
+} %}
+<header
+	data-component="mod-site-header"
+	class="site-header : text--12 {{ theme_class }} {{ boolean__standalone ? 'site-header--standalone' }} {{
+	boolean__cukrarna
+		? 'site-header--cukrarna'
+	}}"
+	id="site-header"
+>
+	{% if info_text %}
+		<div class="site-header__top : d-flex-cc : text-center">
+			<div class="container">
+				<div class="site-header__top-text">
+					{{ info_text }}
+
+					{% include '@atoms/icons/icons.twig' with {
+						icon_modifier: 'chevron-right'
+					} %}
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	<div class="container">
+		{% if large_logo_image %}
+			<div class="site-header__large-logo">
+				<a
+					href="{{ logo_href }}"
+					{{ logo_rel ? 'rel="' ~ logo_rel ~ '"' }}
+					{{ logo_target ? 'target="' ~ logo_target ~ '"' }}
+					{{ large_logo_image_alt ? 'aria-label="' ~ (large_logo_image_alt|striptags) ~ '"' }}
+					class="site-header__large-logo-link : d-flex-cc"
+				>
+					<picture>
+						<source media="(max-width:1023px)" srcset="{{ large_mobile_logo_image }}" />
+						<img
+							class="no-lazzy : site-header__large-logo-image"
+							src="{{ large_logo_image }}"
+							alt="{{ large_logo_image_alt }}"
+							width="42"
+							height="24"
+						/>
+					</picture>
+				</a>
+			</div>
+		{% endif %}
+		<div class="site-header__inner">
+			<div class="site-header__left">
+				<a
+					href="{{ logo_href }}"
+					{{ logo_rel ? 'rel="' ~ logo_rel ~ '"' }}
+					{{ logo_target ? 'target="' ~ logo_target ~ '"' }}
+					{{ logo_image_alt ? 'aria-label="' ~ (logo_image_alt|striptags) ~ '"' }}
+					class="site-header__logo : d-flex-cc {{ hover_logo_image ? 'has-hover-logo' }}"
+				>
+					{% if logo_image %}
+						<img
+							class="no-lazzy : site-header__logo--default"
+							src="{{ logo_image }}"
+							alt="{{ logo_image_alt }}"
+							width="42"
+							height="24"
+						/>
+					{% endif %}
+					{% if hover_logo_image %}
+						<img
+							class="no-lazzy : site-header__logo--hover"
+							src="{{ hover_logo_image }}"
+							alt="{{ logo_image_alt }}"
+							width="42"
+							height="24"
+						/>
+					{% endif %}
+				</a>
+
+				{% include '@molecules/menu/menu.twig' with {
+					menu: menu,
+					language_switch: language_switch,
+					trade_button: trade_button
+				} %}
+			</div>
+
+			<div class="site-header__right">
+				{% if search.href %}
+					{% if boolean__cukrarna %}
+						<div class="site-header__right-separator : d-lg-none"></div>
+					{% endif %}
+
+					<a
+						href="{{ search.href }}"
+						{{ search.rel ? 'rel="' ~ rel ~ '"' }}
+						{{ search.target ? 'target="' ~ search.target ~ '"' }}
+						{{ search.text ? 'aria-label="' ~ (search.text|striptags) ~ '"' }}
+						class="site-header__icon : site-header__search"
+					>
+						{% include '@atoms/icons/icons.twig' with {
+							icon_modifier: 'search'
+						} %}
+					</a>
+				{% endif %}
+
+				{% if language_switch %}
+					{% include '@molecules/language-switch/language-switch.twig' with {
+						language_switch: language_switch
+					} %}
+				{% endif %}
+
+				{% if trade_button.href %}
+					<a
+						href="{{ trade_button.href }}"
+						{{ trade_button.rel ? 'rel="' ~ trade_button.rel ~ '"' }}
+						{{ trade_button.target ? 'target="' ~ trade_button.target ~ '"' }}
+						class="site-header__link : site-header__link--trade"
+					>
+						{{ trade_button.text }}
+					</a>
+				{% endif %}
+
+				{% if boolean__cukrarna %}
+					<a
+						href="{{ tickets_button.href }}"
+						{{ tickets_button.rel ? 'rel="' ~ tickets_button.rel ~ '"' }}
+						{{ tickets_button.target ? 'target="' ~ tickets_button.target ~ '"' }}
+						class="site-header__link"
+					>
+						{{ tickets_button.text }}
+					</a>
+				{% else %}
+					{% if tickets_button.href %}
+						{% include '@atoms/button/button.twig' with {
+							size: 'small',
+							href: tickets_button.href,
+							text: tickets_button.text,
+							target: tickets_button.target,
+							rel: tickets_button.rel,
+							icon: 'tickets'
+						} %}
+					{% endif %}
+				{% endif %}
+
+				{% if boolean__cukrarna %}
+					<button class="hamburger : d-lg-none" {{ hamburger_text ? 'aria-label="' ~ hamburger_text ~ '"' }}>
+						<span class="hamburger__text hamburger__text--open">{{ open_menu_button_text }}</span>
+						<span class="hamburger__text hamburger__text--close">{{ close_menu_button_text }}</span>
+						<span class="hamburger__bars">
+							<i class="hamburger__bar" aria-hidden="true"></i>
+							<i class="hamburger__bar" aria-hidden="true"></i>
+							<i class="hamburger__bar" aria-hidden="true"></i>
+						</span>
+					</button>
+				{% else %}
+					<button class="hamburger : d-lg-none" {{ hamburger_text ? 'aria-label="' ~ hamburger_text ~ '"' }}>
+						<span class="hamburger__bar" aria-hidden="true"></span>
+						<span class="hamburger__bar" aria-hidden="true"></span>
+						<span class="hamburger__bar" aria-hidden="true"></span>
+					</button>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</header>

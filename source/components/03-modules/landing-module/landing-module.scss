@@ -1,0 +1,481 @@
+// **************************************************
+// Landing Module (homepage hero)
+// Cloned from the corporate site (mgml-www.specto.work), values match its compiled bundle.css
+// **************************************************
+
+@import '../../../scss/import';
+
+.landing-module {
+	padding-top: 120px;
+	position: relative;
+	min-height: calc(100vh - 106px);
+	display: flex;
+	flex-direction: column;
+
+	@media (max-height: 900px) {
+		padding-top: 60px;
+	}
+
+	@media only screen and (max-width: 1500px) {
+		padding-top: 60px;
+	}
+
+	@media only screen and (max-width: 1022px) {
+		padding-top: 24px;
+		min-height: calc(100vh - 98px);
+	}
+
+	.title {
+		font-size: 128px;
+		line-height: 1;
+		letter-spacing: -0.06em;
+		font-family: var(--theme-font);
+
+		@media only screen and (max-width: 1500px) {
+			font-size: 100px;
+		}
+
+		@media only screen and (max-width: 1200px) {
+			font-size: 80px;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			font-size: 60px;
+			letter-spacing: normal;
+		}
+
+		// The corporate site's base styles have this for every h1; this sandbox's don't
+		h1 {
+			font-weight: inherit;
+			font-size: inherit;
+			margin: 0;
+		}
+	}
+
+	// Title word masks (01-atoms/text-reveal): the corporate site's word wrappers tighten the tracking at 1200px and
+	// down, which keeps "galerije mesta" on one line on phones
+	&__title .text-reveal__word-wrap {
+		@media only screen and (max-width: 1200px) {
+			letter-spacing: -0.06em;
+		}
+	}
+
+	// Intro start: hidden until landing-module.js starts the intro (it adds .is-intro, then removes it as the intro
+	// tweens take over), so without JS everything is simply visible
+	&.is-intro {
+		.landing-module__title,
+		.landing-module__text,
+		.landing-module__button-item,
+		.landing-module__image,
+		.landing-module__bg-logo {
+			visibility: hidden;
+		}
+	}
+
+	&__bg-logo-wrapper {
+		z-index: -1;
+	}
+
+	&__bg-logo {
+		position: absolute;
+		width: 1203px;
+		right: 0;
+		top: 0;
+		z-index: -1;
+		opacity: 0.03;
+		transform: translate(23%, -28%);
+
+		@media only screen and (max-width: 1500px) {
+			width: 900px;
+		}
+
+		@media only screen and (max-width: 1200px) {
+			width: 800px;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			width: 700px;
+		}
+
+		@media only screen and (max-width: 767px) {
+			width: 100vw;
+		}
+
+		img {
+			width: 100%;
+			height: auto;
+			object-fit: contain;
+		}
+	}
+
+	&__content {
+		max-width: 930px;
+		margin-bottom: 90px;
+		position: relative;
+		z-index: 3;
+
+		@media only screen and (max-width: 1500px) {
+			margin-bottom: 40px;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			margin-bottom: 78px;
+			max-width: 86%;
+			width: 100%;
+		}
+
+		@media only screen and (max-width: 767px) {
+			max-width: 100%;
+		}
+	}
+
+	&__content-inner {
+		margin-top: 62px;
+		display: grid;
+		grid-template-columns: 1fr 31.8%;
+		grid-gap: 94px;
+		align-items: flex-start;
+
+		@media only screen and (max-width: 1200px) {
+			grid-gap: 30px;
+			margin-top: 40px;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			grid-template-columns: 1fr;
+		}
+
+		@media only screen and (max-width: 767px) {
+			margin-top: 34px;
+		}
+	}
+
+	&__title {
+		height: 276px;
+		max-width: 932px;
+
+		@media only screen and (max-width: 1500px) {
+			height: 224px;
+		}
+
+		@media only screen and (max-width: 1200px) {
+			height: 178px;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			height: auto;
+			max-width: 500px;
+			margin-bottom: 36px;
+		}
+	}
+
+	&__button-group {
+		display: flex;
+		align-items: flex-start;
+		gap: 34px;
+
+		@media only screen and (max-width: 767px) {
+			gap: 24px;
+		}
+
+		.link-with-arrow {
+			min-width: 190px;
+			flex: auto;
+			padding: 10px 0;
+
+			@media only screen and (max-width: 1022px) {
+				min-width: 160px;
+			}
+		}
+
+		.btn {
+			min-width: 190px;
+			justify-content: flex-start;
+
+			@media only screen and (max-width: 1022px) {
+				min-width: 160px;
+				padding: 10px 25px;
+			}
+		}
+	}
+
+	&__button-wrap {
+		overflow: hidden;
+	}
+
+
+	&__text {
+		overflow: hidden;
+		height: 86px;
+
+		@media only screen and (max-width: 1022px) {
+			max-width: 280px;
+			width: 100%;
+		}
+	}
+
+	&__text-inner {
+		display: -webkit-box;
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		height: 100%;
+
+		// Once split into word masks by the text reveal, Safari's line-clamp miscounts the masks' padding as overflow
+		// and draws a stray raised "…" after the last word. .landing-module__text (86px, overflow: hidden) still caps
+		// it at four lines, just without an ellipsis on longer text.
+		&.text-reveal {
+			display: block;
+			-webkit-line-clamp: none;
+		}
+	}
+
+	// Images
+	&__image-list {
+		flex: auto;
+		width: 100%;
+		position: relative;
+		min-height: 550px;
+
+		@media only screen and (max-width: 1500px) {
+			min-height: 460px;
+		}
+
+		@media only screen and (max-width: 1200px) {
+			min-height: 340px;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			min-height: 400px;
+		}
+
+		@media (min-width: 1513px) {
+			max-width: 1920px;
+			width: calc(100% - 264px);
+			margin: 0 auto;
+		}
+
+		@media only screen and (max-width: 767px) {
+			min-height: 1px;
+			height: 452px;
+		}
+	}
+
+	&__image {
+		cursor: pointer;
+		width: 430px;
+		position: absolute;
+		top: 20%;
+		left: 0;
+
+		@media only screen and (max-width: 1500px) {
+			width: 25vw;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			width: 30vw;
+			top: 60%;
+		}
+
+		@media (min-width: 1919px) {
+			width: 540px;
+		}
+	}
+
+	// The scroll parallax sets transform on this every frame, with no transition, so it stays locked to the scroll
+	&__image-inner {
+		position: relative;
+		height: 0;
+		padding-bottom: 76%;
+		overflow: hidden;
+		display: block;
+
+		@media only screen and (max-width: 767px) {
+			padding-bottom: 0;
+			height: 100%;
+		}
+
+		// Zoomed in, so the photo has room to drift inside its frame on scroll (landing-module.js): 1.25 leaves 12.5% of
+		// its height spare above and below, more than the 10% it moves either way
+		img {
+			position: absolute;
+			inset: 0;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			transform: scale(1.25);
+		}
+	}
+
+	&__image--1 {
+		width: 218px;
+		left: initial;
+		right: 0;
+		top: initial;
+		bottom: 152%;
+
+		@media only screen and (max-width: 1500px) {
+			width: 13vw;
+			bottom: 136%;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			bottom: 120%;
+		}
+
+		@media only screen and (max-width: 767px) {
+			bottom: initial;
+			top: 59%;
+			right: initial;
+			width: 172px;
+			height: 132px;
+			left: 0;
+		}
+
+		@media (min-width: 1513px) {
+			transform: translate(132px, 0);
+		}
+
+		@media (min-width: 1919px) {
+			width: 260px;
+		}
+
+		.landing-module__image-inner {
+			@media only screen and (min-width: 768px) {
+				padding-bottom: 114%;
+			}
+		}
+	}
+
+	&__image--2 {
+		width: 324px;
+		left: initial;
+		right: 0;
+		top: -32%;
+
+		@media only screen and (max-width: 1500px) {
+			width: 18vw;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			top: 0;
+		}
+
+		@media only screen and (max-width: 767px) {
+			width: 110px;
+			height: 124px;
+			right: initial;
+			left: 26%;
+			z-index: 4;
+			top: 39%;
+		}
+
+		@media (min-width: 1513px) {
+			transform: translate(132px, 0);
+		}
+
+		@media (min-width: 1919px) {
+			width: 408px;
+		}
+
+		.landing-module__image-inner {
+			@media only screen and (min-width: 768px) {
+				padding-bottom: 140%;
+			}
+		}
+	}
+
+	&__image--3 {
+		width: 404px;
+		left: 43.5%;
+		top: 21%;
+
+		@media only screen and (max-width: 1500px) {
+			width: 22vw;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			width: 26vw;
+			top: 35%;
+		}
+
+		@media only screen and (max-width: 767px) {
+			top: 55%;
+			right: 0;
+			width: 168px;
+			height: 182px;
+			left: initial;
+		}
+
+		@media (min-width: 1513px) {
+			left: 42.2%;
+		}
+
+		@media (min-width: 1919px) {
+			width: 508px;
+		}
+
+		.landing-module__image-inner {
+			@media only screen and (min-width: 768px) {
+				padding-bottom: 108%;
+			}
+		}
+	}
+
+	&__image--4 {
+		width: 192px;
+		left: 22.8%;
+		z-index: 3;
+		top: 0;
+
+		@media only screen and (max-width: 1500px) {
+			width: 10vw;
+		}
+
+		@media only screen and (max-width: 1022px) {
+			top: 20%;
+			left: 9%;
+		}
+
+		@media only screen and (max-width: 767px) {
+			width: 120px;
+			top: -5%;
+			left: initial;
+			height: 168px;
+			right: 0;
+		}
+
+		@media (min-width: 1513px) {
+			transform: translate(-72px, 0);
+		}
+
+		@media (min-width: 1919px) {
+			width: 240px;
+		}
+
+		.landing-module__image-inner {
+			padding-bottom: 114%;
+		}
+	}
+
+	&__image--5 {
+		@media only screen and (max-width: 1022px) {
+			top: 60%;
+			width: 40vw;
+		}
+
+		@media (min-width: 1513px) {
+			transform: translate(-132px, 0);
+		}
+
+		@media (min-width: 1919px) {
+			width: 540px;
+		}
+
+		@media only screen and (max-width: 767px) {
+			top: -5%;
+			width: 163px;
+			height: 186px;
+		}
+	}
+}

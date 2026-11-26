@@ -1,0 +1,649 @@
+// **************************************************
+// Menu
+// **************************************************
+
+@import '../../../scss/import';
+
+// Strong ease-out: the dropdown starts moving the moment it is triggered
+$ease_dropdown: cubic-bezier(0.23, 1, 0.32, 1);
+
+// Side panel: the iOS drawer curve. It starts fast and settles softly, which suits a panel that travels the full width
+$ease_drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+// Mobile menu links: ease-out expo, stronger than $ease_dropdown. Most of the movement happens right away and the
+// long tail settles gently
+$ease_menu_item: cubic-bezier(0.19, 1, 0.22, 1);
+
+.menu {
+	position: relative;
+
+	// Desktop and up
+	@media #{$breakpoint-lg-up} {
+		display: block !important;
+	}
+
+	// Tablet L and down
+	@media #{$breakpoint-md-down} {
+		position: fixed;
+		left: 0;
+		top: calc(var(--header-height, 116px) - 1px);
+		height: calc(100% - var(--header-height, 116px) + 1px);
+		width: 100%;
+		overflow: auto;
+		background-color: var(--theme-background-color, $cgp_gray_100);
+		border-top: 1px solid var(--theme-border, rgba($cgp_black, 0.1));
+
+		// Open and close are driven by body.is-open-menu (site-header.js), not by display, so the panel can transition and
+		// a quick second tap retargets the transition instead of restarting it.
+		// Closed state: parked off the right edge, not display: none. visibility waits for the slide, so the panel is not
+		// focusable once hidden. It slides sideways only: moving it up would put it over the navbar.
+		// Exit is quicker than enter
+		visibility: hidden;
+		transform: translateX(100%);
+		transition: transform 0.44s $ease_drawer, visibility 0s linear 0.44s;
+
+		// stylelint-disable-next-line
+		.#{$class_open_menu} & {
+			visibility: visible;
+			transform: none;
+			transition: transform 0.64s $ease_drawer, visibility 0s;
+		}
+
+		// Level-1 links fade in one after another and their text rises from below. On close they stay put until the panel
+		// is off screen.
+		// stylelint-disable-next-line
+		.menu__list.level-1 > .menu__item {
+			opacity: 0;
+			transition: opacity 0s linear 0.44s;
+		}
+
+		// stylelint-disable-next-line
+		.menu__list.level-1 > .menu__item > .menu__item-wrap .menu__text,
+		.menu__list.level-1 > .menu__item > .menu__item-wrap .menu__link > span:not(.menu__text) {
+			transform: translateY(14px);
+			transition: transform 0s linear 0.44s;
+		}
+
+		// stylelint-disable-next-line
+		.#{$class_open_menu} & .menu__list.level-1 > .menu__item {
+			opacity: 1;
+			transition: opacity 0.6s $ease_menu_item;
+
+			// stylelint-disable-next-line
+			> .menu__item-wrap .menu__text,
+			> .menu__item-wrap .menu__link > span:not(.menu__text) {
+				transform: none;
+				transition: transform 0.6s $ease_menu_item;
+			}
+
+			// Last (7th) link starts at 40 + 6 * 30 = 220ms and takes 0.6s, so it settles at 820ms, after the panel's 0.64s.
+			// With the ease-out expo curve almost all of its movement is done well before then; only the tail runs past
+			@for $i from 1 through 8 {
+				&:nth-child(#{$i}) {
+					transition-delay: #{40ms + ($i - 1) * 30ms};
+
+					// stylelint-disable-next-line
+					> .menu__item-wrap .menu__text,
+					> .menu__item-wrap .menu__link > span:not(.menu__text) {
+						transition-delay: #{40ms + ($i - 1) * 30ms};
+					}
+				}
+			}
+		}
+
+		// Fade only, no movement
+		@media (prefers-reduced-motion: reduce) {
+			transform: none;
+			opacity: 0;
+			transition: opacity 0.2s ease, visibility 0s linear 0.22s;
+
+			// stylelint-disable-next-line
+			.#{$class_open_menu} & {
+				opacity: 1;
+				transition: opacity 0.2s ease, visibility 0s;
+			}
+
+			// stylelint-disable-next-line
+			.menu__list.level-1 > .menu__item,
+			.menu__list.level-1 > .menu__item > .menu__item-wrap .menu__text,
+			.menu__list.level-1 > .menu__item > .menu__item-wrap .menu__link > span:not(.menu__text) {
+				opacity: 1;
+				transform: none;
+				transition: none;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+		min-height: 100%;
+	}
+
+	// ##################################################
+
+	&__list {
+		display: flex;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			flex-direction: column;
+			width: 100%;
+		}
+
+		&.level-1 {
+			// Desktop and up
+			@media #{$breakpoint-lg-up} {
+				gap: 32px;
+			}
+		}
+
+		&.level-2 {
+			// Desktop and up
+			@media #{$breakpoint-lg-up} {
+				flex-direction: column;
+				position: relative;
+				z-index: 3;
+				background-color: var(--theme-background-color, $cgp_gray_100);
+				margin-bottom: 120px;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__item {
+		position: relative;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			width: 100%;
+		}
+
+		// ##################################################
+
+		&.level-1 {
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				border-right: 0;
+				border-bottom: 1px solid var(--theme-menu-border, $cgp_gray_200);
+			}
+		}
+
+		// ##################################################
+
+		&.level-2 {
+			border-bottom: 1px solid var(--theme-menu-border, $cgp_gray_200);
+			transition: none;
+			position: relative;
+
+			// Tablet L and down: the parent level-1 item's bottom border already closes the list, so the last level-2
+			// border would draw a double line
+			&:last-child {
+				@media #{$breakpoint-md-down} {
+					border-bottom: 0;
+				}
+			}
+
+			&:first-child {
+				.menu__image {
+					transform: translate(0, 0);
+					top: 0;
+				}
+			}
+
+			&:nth-child(2) {
+				.menu__image {
+					top: 0;
+					transform: translate(0, -49px);
+				}
+			}
+
+			&:nth-child(3) {
+				.menu__image {
+					transform: translate(0, -40%);
+				}
+			}
+		}
+
+		// ##################################################
+
+		&-wrap {
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				display: flex;
+				transition: background-color 0.3s ease, box-shadow 0.3s ease;
+			}
+		}
+
+		// ##################################################
+
+		// stylelint-disable-next-line
+		&:hover {
+			// Desktop and up
+			@media #{$breakpoint-lg-up} {
+				// stylelint-disable-next-line
+				.menu__link.level-1 {
+					opacity: 0.5;
+
+					// stylelint-disable-next-line
+					.#{$theme_mgml} & {
+						opacity: 1;
+						color: var(--color-mgml);
+					}
+
+					// stylelint-disable-next-line
+					.icon {
+						transform: rotate(270deg);
+					}
+				}
+
+				// The underline on hover is directional and driven by source/scripts/02_hover_lines.js (.is-line-on)
+
+				// stylelint-disable-next-line
+				.menu__dropdown {
+					opacity: 1;
+					visibility: visible;
+					pointer-events: auto;
+					transition: opacity 0.528s $ease_dropdown, visibility 0s;
+
+					// stylelint-disable-next-line
+					> .menu__list {
+						transform: none;
+						transition: transform 0.528s $ease_dropdown;
+					}
+				}
+
+				// stylelint-disable-next-line
+				&.level-2 {
+					background-color: var(--theme-border, $cgp_gray_200);
+					// gray-300 lines above and below the hovered row. The one above is the previous item's border (or the
+					// dropdown's top border), so it is painted over with a shadow instead of changing that item
+					border-bottom-color: var(--color-gray-300);
+					box-shadow: 0 -1px 0 var(--color-gray-300);
+
+					.menu__image {
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		// ##################################################
+
+		// stylelint-disable-next-line
+		&.#{$class_active} {
+			// Desktop and up
+			@media #{$breakpoint-lg-up} {
+				// stylelint-disable-next-line
+				.menu__link.level-1 {
+					// stylelint-disable-next-line
+					.#{$theme_mgml} & {
+						opacity: 1;
+						color: var(--color-mgml);
+					}
+				}
+
+				// stylelint-disable-next-line
+				.menu__text {
+					// stylelint-disable-next-line
+					&::before,
+					&::after {
+						clip-path: inset(0 0 0 0);
+					}
+				}
+			}
+		}
+
+		// ##################################################
+
+		// stylelint-disable-next-line
+		&.#{$class_open_submenu} {
+			// Desktop and up
+			@media #{$breakpoint-lg-up} {
+				// stylelint-disable-next-line
+				.menu__dropdown {
+					opacity: 1;
+					visibility: visible;
+					pointer-events: auto;
+					transition: opacity 0.528s $ease_dropdown, visibility 0s;
+
+					// stylelint-disable-next-line
+					> .menu__list {
+						transform: none;
+						transition: transform 0.528s $ease_dropdown;
+					}
+				}
+			}
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				// stylelint-disable-next-line
+				.menu__dropdown {
+					grid-template-rows: 1fr;
+					visibility: visible;
+					transition: grid-template-rows 0.28s $ease_drawer, visibility 0s;
+
+					@media (prefers-reduced-motion: reduce) {
+						transition: none;
+					}
+				}
+
+				// The chevron turns with the same timing as the height, so both land together
+				// stylelint-disable-next-line
+				.menu__link .icon,
+				.menu__arrow .icon {
+					transition: transform 0.28s $ease_drawer;
+				}
+			}
+
+			// stylelint-disable-next-line
+			.menu__link {
+				// stylelint-disable-next-line
+				.icon {
+					transform: rotate(270deg);
+				}
+			}
+
+			// stylelint-disable-next-line
+			.menu__item-wrap {
+				// Tablet L and down
+				@media #{$breakpoint-md-down} {
+					background-color: var(--theme-border, $cgp_gray_200);
+					// Lines above and below the open row. Shadows, not borders, so nothing shifts: the top one paints over the
+					// border of the item above (or the menu's top border), the bottom one sits inside the row
+					box-shadow: 0 -1px 0 var(--color-gray-300), inset 0 -1px 0 var(--color-gray-300);
+				}
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__link {
+		display: flex;
+		gap: 4px;
+		align-items: center;
+		transition: none;
+		position: relative;
+		min-height: 75px;
+		z-index: 4;
+		text-transform: uppercase;
+		font-weight: 600;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			padding: 8px 24px;
+			min-height: 56px;
+			width: auto;
+			font-size: 14px;
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_cukrarna} & {
+			min-height: 56px;
+			font-size: 14px;
+			letter-spacing: 0.04em;
+		}
+
+		// ##################################################
+
+		&.level-2 {
+			min-height: 48px;
+			padding: 4px 0;
+			font-size: 16px;
+			text-transform: initial;
+
+
+			// Tablet L and down
+			@media #{$breakpoint-md-down} {
+				font-size: 14px;
+			}
+		}
+
+		// ##################################################
+
+		.icon {
+			transition: transform 0.24s $ease_dropdown;
+
+			// Tablet L and down: closes with the accordion (see .menu__dropdown)
+			@media #{$breakpoint-md-down} {
+				transition: transform 0.2s $ease_drawer;
+			}
+		}
+
+		&.has-tag {
+			gap: 10px;
+			@extend %location_tags;
+
+			// ##################################################
+
+			&:before {
+				content: '';
+				height: 16px;
+				width: 16px;
+				display: block;
+				position: relative;
+				flex-shrink: 0;
+			}
+		}
+	}
+
+	// ##################################################
+
+	// Level-2 link text. The box is trimmed to the cap height, so the link's align-items: center lines the location
+	// square up with the capitals instead of with the line box (whose extra space under the baseline pushes the
+	// letters below the square's centre). Browsers without text-box keep the old line-box centring.
+	&__label {
+		text-box: trim-both cap alphabetic;
+	}
+
+	// ##################################################
+
+	&__text {
+		position: relative;
+		@extend %hover_lines;
+	}
+
+	// ##################################################
+
+	&__arrow {
+		position: absolute;
+		z-index: 4;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		cursor: pointer;
+
+		// Desktop
+		@media #{$breakpoint-lg-up} {
+			right: 0;
+			left: initial;
+			pointer-events: none;
+		}
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			position: absolute;
+			height: 56px;
+			width: 100%;
+			flex: auto;
+			margin-left: 0;
+			left: 0;
+		}
+
+		.icon {
+			transition: transform 0.24s $ease_dropdown;
+
+			// Tablet L and down: closes with the accordion (see .menu__dropdown)
+			@media #{$breakpoint-md-down} {
+				transition: transform 0.2s $ease_drawer;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__dropdown {
+		// Desktop and up
+		@media #{$breakpoint-lg-up} {
+			position: fixed;
+			left: 0;
+			top: calc(var(--header-height, 106px));
+			width: 100%;
+			z-index: 3;
+			overflow: auto;
+			max-height: calc(100% - var(--header-height, 106px));
+			@include scrollbar(0, rgba($cgp_gray_100, 0.4), rgba($cgp_gray_100, 0.4), 8px);
+			visibility: hidden;
+			opacity: 0;
+			margin-top: -2px;
+			// Exit is quicker than enter. Visibility waits for the fade so the panel is still seen fading out, but it stops
+			// taking the pointer the moment it starts to close: otherwise moving back over the fading panel hovers the
+			// item again and the dropdown comes back
+			pointer-events: none;
+			transition: opacity 0.36s $ease_dropdown, visibility 0s linear 0.36s;
+			border-top: 1px solid var(--theme-menu-border, #e5e5e5);
+
+			// The first item's line above is this border. Its hover shadow (0 -1px) is clipped by overflow: auto, so the
+			// dropdown recolours its own border instead
+			// stylelint-disable-next-line
+			&:has(> .menu__list > .menu__item.level-2:first-child:hover) {
+				border-top-color: var(--color-gray-300);
+			}
+		}
+
+		// Tablet L and down: the accordion inside the open mobile menu. Only the height moves: the gap between the parent
+		// and the next level-1 item opens, pushing the items below down, and the submenu links stay put and are uncovered
+		// by the growing clip (no fade, no rise). The height goes 0fr to 1fr on a grid, so there is no height measuring in
+		// JS and a quick second tap retargets the transition. Exit is quicker than enter. visibility waits for the
+		// collapse, so closed links can't be tabbed to.
+		@media #{$breakpoint-md-down} {
+			display: grid;
+			grid-template-rows: 0fr;
+			visibility: hidden;
+			transition: grid-template-rows 0.2s $ease_drawer, visibility 0s linear 0.2s;
+
+			// stylelint-disable-next-line
+			> .menu__list {
+				min-height: 0;
+				overflow: hidden;
+			}
+
+			@media (prefers-reduced-motion: reduce) {
+				transition: none;
+			}
+		}
+
+		// The slide is on the list, not on the dropdown: a transform on the dropdown would become the containing block
+		// of the fixed .menu__overlay (its sibling) and break the backdrop
+		// Desktop and up
+		@media #{$breakpoint-lg-up} {
+			// stylelint-disable-next-line
+			> .menu__list {
+				transform: translateY(-6px);
+				transition: transform 0.36s $ease_dropdown;
+			}
+		}
+
+		// Keep the fade, drop the movement
+		@media (prefers-reduced-motion: reduce) {
+			// stylelint-disable-next-line
+			> .menu__list {
+				transform: none !important;
+			}
+		}
+
+		// ##################################################
+
+		.container {
+			position: relative;
+		}
+
+		// Tablet L and down: level-2 links sit 12px deeper than the level-1 text (24px). The extra .menu__item.level-2
+		// is there to beat .site-header .container (padding: 0 16px), which comes later in the bundle
+		// stylelint-disable-next-line
+		.menu__item.level-2 > .container {
+			@media #{$breakpoint-md-down} {
+				padding: 0 36px;
+			}
+		}
+	}
+
+	// ##################################################
+
+	&__overlay {
+		position: fixed;
+		top: var(--header-height, 106px);
+		z-index: 1;
+		background-color: rgba($cgp_black, 0.5);
+		width: 100%;
+		height: 100%;
+		left: 0;
+		pointer-events: none;
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			display: none;
+		}
+	}
+
+	// ##################################################
+
+	&__image {
+		z-index: 3;
+		position: absolute;
+		right: 20px;
+		top: 50%;
+		transform: translate(0, -50%);
+		width: 405px;
+		height: 270px;
+		opacity: 0;
+		transition: opacity 0s ease;
+
+		// Small desktop and down
+		@media #{$breakpoint-lg-down} {
+			width: 320px;
+			height: 210px;
+		}
+
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			display: none;
+		}
+	}
+
+	// ##################################################
+
+	&__footer {
+		// Tablet L and down
+		@media #{$breakpoint-md-down} {
+			display: flex;
+			justify-content: center;
+			margin-top: auto;
+			padding: 40px 24px;
+			flex-direction: column;
+			align-items: center;
+			gap: 16px;
+		}
+
+		.site-header__link {
+			text-transform: uppercase;
+		}
+
+		.site-header__link,
+		.btn {
+			display: flex !important;
+		}
+	}
+
+	// ##################################################
+
+	.language-switch {
+		display: flex;
+		gap: 4px;
+	}
+}

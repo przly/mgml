@@ -1,0 +1,695 @@
+// ##################################################
+// Button
+// ##################################################
+
+@import '../../../scss/import';
+
+// Press feedback: the button gives a little under the pointer. Slower down than back up,
+// :active only, so a quick click lets go at once (the arrows hold their press, the button does not)
+$btn_press_in_duration: 0.3s;
+$btn_press_duration: 0.16s;
+$btn_press_scale: 0.98;
+
+// WCAG AA (4.5:1 for the white label): the reds darkened just enough, same hue
+$btn_mgml_hover: #e22a32; // MGML red #e73137, the hover fill (4.55:1)
+$btn_red: #e12b37; // Mestni muzej red #f03c43 (4.56:1)
+
+// Arrow slide on hover: forward, and 20% faster back on hover out (the same curve both ways)
+$btn_arrow_duration: 0.45s;
+$btn_arrow_back_duration: $btn_arrow_duration * 0.8;
+
+// Hover, only where there is a real hover (a mouse or trackpad). On touch screens a tap would leave the hover
+// colours and the arrow stuck on the button until the next tap elsewhere. Keyboard focus gets the same look
+// (:focus-visible, so a click or tap does not keep it either). Taps get the press feedback (:active, "Pressed" below)
+@mixin btn-hover {
+	@media (hover: hover) {
+		&:hover {
+			@content;
+		}
+	}
+
+	&:focus-visible {
+		@content;
+	}
+}
+
+// Style
+.btn {
+	-webkit-tap-highlight-color: transparent; // no gray flash on tap, the press feedback shows the tap
+	cursor: pointer;
+	font-family: var(--font-primary);
+	font-size: 14px;
+	min-height: 44px;
+	padding: 8px 24px;
+	line-height: 1.5;
+	display: inline-flex;
+	text-align: center;
+	align-items: center;
+	font-weight: 600;
+	justify-content: center;
+	gap: 8px;
+	color: var(--color-gray-100);
+	border-radius: 0;
+	background-color: var(--color-gray-800);
+	border: 0;
+	position: relative;
+	// Hover: the colours change at once, no transition. Only the press (transform) animates, see "Pressed" below
+	transition: transform $btn_press_duration $ease_out_strong;
+	-webkit-font-smoothing: initial;
+	-moz-osx-font-smoothing: initial;
+
+	// stylelint-disable-next-line
+	.#{$theme_premium_black} & {
+		background-color: var(--color-gray-200);
+		color: var(--color-gray-950);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_arheopark_emona} & {
+		background-color: var(--color-arheopark-turquoise);
+		color: var(--color-white); // 4.57:1 (gray 100 is 4.19)
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_plecnikova_hisa} & {
+		background-color: var(--color-plecnikova);
+		color: var(--color-gray-800);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_vila_zlatica} & {
+		background-color: var(--color-vila-zlatica);
+		color: var(--color-gray-800); // 6.09:1 (white is 2.49)
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_mestna_galerija_ljubljana} & {
+		background-color: var(--color-mestna-galerija);
+		color: var(--color-gray-800); // 6.47:1 (white is 2.34)
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} & {
+		background-color: var(--color-jakopic-secondary);
+		color: var(--color-white);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_bezigrad} &,
+	.#{$theme_bezigrajska_galerija_1} &,
+	.#{$theme_bezigrajska_galerija_2} & {
+		background-color: var(--color-bezigrad);
+		color: var(--color-gray-800); // 6.24:1 (gray 100 is 2.22)
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_vzigalica} &,
+	.#{$theme_mestni_muzej_ljubljana} & {
+		@extend %red_button;
+		background-color: $btn_red;
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_cukrarna} & {
+		border-radius: 40px;
+		font-weight: 600;
+	}
+
+	// ##################################################
+
+	// Button text
+	&__text {
+		display: block;
+		pointer-events: none;
+		transition: transform 0.19s ease;
+		position: relative;
+		z-index: 3;
+		// Optical centring: the line box has more room above the caps (for accents) than below the baseline, which
+		// leaves the text sitting ~0.5px low. Trimming it to cap height and baseline centres the caps in the button.
+		// Browsers without text-box support keep the full line box, as before
+		text-box: trim-both cap alphabetic;
+	}
+
+	// ##################################################
+	// Hover background: covers the button at once on hover (no wipe). The theme rules below set its colour
+
+	&::before {
+		background-color: $btn_mgml_hover;
+		content: '';
+		height: 100%;
+		pointer-events: none;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		opacity: 0;
+
+		// Hover fill: the theme colour 20% darker under a light label, 20% lighter under a dark label (the label stays,
+		// and keeps its contrast: darker under light text, lighter under dark text only raises it)
+
+		// Light labels: 20% darker
+		// stylelint-disable-next-line
+		.#{$theme_arheopark_emona} & {
+			background-color: mix($cgp_black, $cgp_arheopark_turquoise, 20%);
+		}
+
+		// Over the red theme hover fill (white), see %red_button
+		// stylelint-disable-next-line
+		.#{$theme_mestni_muzej_ljubljana} &,
+		.#{$theme_galerija_vzigalica} & {
+			background-color: mix($cgp_black, $btn_red, 20%);
+		}
+
+		// Dark labels: 20% lighter
+		// stylelint-disable-next-line
+		.#{$theme_plecnikova_hisa} & {
+			background-color: mix($cgp_white, $cgp_plecnikova, 20%);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_vila_zlatica} & {
+			background-color: mix($cgp_white, $cgp_vila_zlatica, 20%);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_mestna_galerija_ljubljana} & {
+			background-color: mix($cgp_white, $cgp_mestna_galerija, 20%);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_bezigrad} &,
+		.#{$theme_bezigrajska_galerija_1} &,
+		.#{$theme_bezigrajska_galerija_2} & {
+			background-color: mix($cgp_white, $cgp_bezigrad, 20%);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: mix($cgp_black, $cgp_jakopic_secondary, 20%);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_cukrarna} & {
+			display: none;
+		}
+	}
+
+	// The label keeps its resting colour on the hover fill (over the base hover's white, and the red themes' gray 800)
+	@include btn-hover {
+		// stylelint-disable-next-line
+		.#{$theme_mestni_muzej_ljubljana} &,
+		.#{$theme_galerija_vzigalica} & {
+			color: var(--color-white);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_plecnikova_hisa} &,
+		.#{$theme_vila_zlatica} &,
+		.#{$theme_mestna_galerija_ljubljana} &,
+		.#{$theme_galerija_bezigrad} &,
+		.#{$theme_bezigrajska_galerija_1} &,
+		.#{$theme_bezigrajska_galerija_2} & {
+			color: var(--color-gray-800);
+		}
+	}
+
+	// ##################################################
+
+	// Icon element
+	&__icon {
+		flex-shrink: 0;
+		position: relative;
+		top: 0;
+		min-width: 16px;
+		pointer-events: none;
+		z-index: 3;
+
+		&-inner {
+			display: flex;
+			font-style: normal;
+		}
+
+		// One size for every icon, the same as the arrow. The icons share one SVG viewBox,
+		// so the same box gives them the same visual size
+		.icon {
+			width: 14px;
+			height: 14px;
+		}
+
+		// The arrows fade out at the edges of the box instead of being cut off by a straight edge.
+		// The box is widened by the fade on each side (negative margins keep its 14px in the layout),
+		// and the two arrows sit one fade apart, so the hidden one stays outside the visible area at rest.
+		&--arrow {
+			--btn-arrow-size: 14px;
+			--btn-arrow-fade: 6px;
+
+			min-width: 1px;
+			overflow: hidden;
+			box-sizing: content-box;
+			width: var(--btn-arrow-size);
+			height: var(--btn-arrow-size);
+			padding: 0 var(--btn-arrow-fade);
+			margin: 0 calc(var(--btn-arrow-fade) * -1);
+			display: flex;
+			justify-content: flex-end;
+			-webkit-mask-image: linear-gradient(
+				to right,
+				transparent,
+				#000 var(--btn-arrow-fade),
+				#000 calc(100% - var(--btn-arrow-fade)),
+				transparent
+			);
+			mask-image: linear-gradient(
+				to right,
+				transparent,
+				#000 var(--btn-arrow-fade),
+				#000 calc(100% - var(--btn-arrow-fade)),
+				transparent
+			);
+
+			// Slides one arrow forward on hover and back on hover out. This is the back timing, the forward one is in
+			// the hover rule below (transition, so leaving half-way reverses from there)
+			.btn__icon-inner {
+				display: flex;
+				gap: var(--btn-arrow-fade);
+				transform: translate(0, 0);
+				transition: transform $btn_arrow_back_duration $ease_out_strong;
+			}
+
+			.icon {
+				flex-shrink: 0;
+			}
+		}
+	}
+
+	// ##################################################
+
+	// Hover/Focus
+	// The arrow slides forward over $btn_arrow_duration, and back on hover out (the rule on .btn__icon-inner above)
+	@include btn-hover {
+		.btn__icon--arrow .btn__icon-inner {
+			transform: translate(calc(var(--btn-arrow-size) + var(--btn-arrow-fade)), 0);
+			transition-duration: $btn_arrow_duration;
+		}
+
+		color: var(--color-white); // 4.55:1 on the MGML red hover fill
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			color: var(--color-white);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_cukrarna} & {
+			background-color: var(--color-gray-700);
+		}
+
+		&::before {
+			opacity: 1;
+		}
+	}
+
+
+	// ##################################################
+
+	.icon {
+		transition: transform 0.19s ease;
+
+		&::before {
+			background-color: currentColor;
+		}
+	}
+
+	// ##################################################
+
+	// No border in any theme, so it is the same size as the primary
+	&--secondary {
+		background-color: var(--color-gray-100);
+		color: var(--color-gray-800);
+
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			background-color: var(--color-gray-800);
+			color: var(--color-white);
+		}
+
+		// Gray 800 instead of the theme colour (gray 700 on hover, the rule below)
+		// stylelint-disable-next-line
+		.#{$theme_galerija_bezigrad} &,
+		.#{$theme_bezigrajska_galerija_1} &,
+		.#{$theme_bezigrajska_galerija_2} &,
+		.#{$theme_arheopark_emona} &,
+		.#{$theme_plecnikova_hisa} &,
+		.#{$theme_vila_zlatica} &,
+		.#{$theme_mestna_galerija_ljubljana} &,
+		.#{$theme_mestni_muzej_ljubljana} &,
+		.#{$theme_galerija_vzigalica} & {
+			background-color: var(--color-gray-800);
+			color: var(--color-gray-100);
+		}
+
+		// Gray 700 hover fill, like the primary and the tertiary (the text turns light in the hover rule below)
+		// stylelint-disable-next-line
+		.#{$theme_arheopark_emona} &,
+		.#{$theme_mestni_muzej_ljubljana} &,
+		.#{$theme_galerija_bezigrad} &,
+		.#{$theme_bezigrajska_galerija_1} &,
+		.#{$theme_bezigrajska_galerija_2} &,
+		.#{$theme_galerija_vzigalica} &,
+		.#{$theme_plecnikova_hisa} &,
+		.#{$theme_vila_zlatica} &,
+		.#{$theme_mestna_galerija_ljubljana} & {
+			&::before {
+				background-color: var(--color-gray-700);
+			}
+		}
+
+		// MGML: white with a hairline border, like the white tertiary buttons (gray 200 and a gray 300 border on hover)
+		// stylelint-disable-next-line
+		.#{$theme_mgml} & {
+			border: 0.5px solid var(--color-gray-200);
+			background-color: var(--color-white);
+			color: var(--color-gray-800);
+
+			&::before {
+				background-color: var(--color-gray-200);
+			}
+
+			@include btn-hover {
+				color: var(--color-gray-800);
+				border-color: var(--color-gray-300);
+			}
+		}
+
+		// Galerija Jakopic: white, no border, gray 200 on hover (over the theme purple)
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: var(--color-white);
+			color: var(--color-gray-800);
+
+			&::before {
+				background-color: var(--color-gray-200);
+			}
+
+			// Over the theme hover (white text)
+			@include btn-hover {
+				color: var(--color-gray-800);
+			}
+		}
+
+		// ##################################################
+		// Background
+
+		&::before {
+			background-color: var(--color-white);
+		}
+
+		@include btn-hover {
+			color: var(--color-gray-800);
+
+			// stylelint-disable-next-line
+			.#{$theme_arheopark_emona} &,
+			.#{$theme_mestni_muzej_ljubljana} &,
+			.#{$theme_galerija_bezigrad} &,
+			.#{$theme_bezigrajska_galerija_1} &,
+			.#{$theme_bezigrajska_galerija_2} &,
+			.#{$theme_galerija_vzigalica} &,
+			.#{$theme_plecnikova_hisa} &,
+			.#{$theme_vila_zlatica} &,
+			.#{$theme_mestna_galerija_ljubljana} & {
+				color: var(--color-gray-100);
+			}
+
+			// stylelint-disable-next-line
+			.#{$theme_cukrarna} & {
+				background-color: var(--color-white);
+			}
+		}
+	}
+
+	// ##################################################
+
+	&--tertiary {
+		background-color: var(--color-mgml);
+		color: var(--color-gray-100);
+
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			background-color: var(--color-mgml);
+			color: var(--color-gray-100);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_cukrarna} & {
+			background-color: var(--color-gray-600);
+			color: var(--color-gray-100);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_arheopark_emona} &,
+		.#{$theme_plecnikova_hisa} &,
+		.#{$theme_vila_zlatica} &,
+		.#{$theme_mestna_galerija_ljubljana} &,
+		.#{$theme_mestni_muzej_ljubljana} &,
+		.#{$theme_galerija_bezigrad} &,
+		.#{$theme_bezigrajska_galerija_1} &,
+		.#{$theme_bezigrajska_galerija_2} &,
+		.#{$theme_galerija_vzigalica} & {
+			// Hairline border, gray 300 on hover
+			border: 0.5px solid var(--color-gray-200);
+			background-color: var(--color-white);
+			color: var(--color-gray-800);
+		}
+
+		// Galerija Jakopic: gray 700 with a gray 600 hairline border, gray 600 on hover (over the theme purple)
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			border: 0.5px solid var(--color-gray-600);
+			background-color: var(--color-gray-700);
+			color: var(--color-gray-100);
+
+			&::before {
+				background-color: var(--color-gray-600);
+			}
+
+			// Over the theme hover (gray 800 text)
+			@include btn-hover {
+				color: var(--color-gray-100);
+			}
+		}
+
+		// ##################################################
+		// Background
+
+		&::before {
+			background-color: var(--color-gray-600);
+
+			// stylelint-disable-next-line
+			.#{$theme_mgml} &,
+			.#{$theme_arheopark_emona} &,
+			.#{$theme_mestni_muzej_ljubljana} &,
+			.#{$theme_plecnikova_hisa} &,
+			.#{$theme_vila_zlatica} &,
+			.#{$theme_mestna_galerija_ljubljana} & {
+				background-color: var(--color-gray-700);
+			}
+
+			// White buttons: gray 200 on hover (the text stays gray 800 in the hover rule below)
+			// stylelint-disable-next-line
+			.#{$theme_arheopark_emona} &,
+			.#{$theme_plecnikova_hisa} &,
+			.#{$theme_vila_zlatica} &,
+			.#{$theme_mestna_galerija_ljubljana} &,
+			.#{$theme_mestni_muzej_ljubljana} &,
+			.#{$theme_galerija_bezigrad} &,
+			.#{$theme_bezigrajska_galerija_1} &,
+			.#{$theme_bezigrajska_galerija_2} &,
+			.#{$theme_galerija_vzigalica} & {
+				background-color: var(--color-gray-200);
+			}
+		}
+
+		@include btn-hover {
+			color: var(--color-gray-100);
+
+			// Over the theme hover rules on .btn (white, or gray 800 in the red themes)
+			// stylelint-disable-next-line
+			.#{$theme_mestni_muzej_ljubljana} &,
+			.#{$theme_plecnikova_hisa} &,
+			.#{$theme_vila_zlatica} &,
+			.#{$theme_mestna_galerija_ljubljana} & {
+				color: var(--color-gray-100);
+			}
+
+			// White buttons, gray 200 hover
+			// stylelint-disable-next-line
+			.#{$theme_arheopark_emona} &,
+			.#{$theme_plecnikova_hisa} &,
+			.#{$theme_vila_zlatica} &,
+			.#{$theme_mestna_galerija_ljubljana} &,
+			.#{$theme_mestni_muzej_ljubljana} &,
+			.#{$theme_galerija_bezigrad} &,
+			.#{$theme_bezigrajska_galerija_1} &,
+			.#{$theme_bezigrajska_galerija_2} &,
+			.#{$theme_galerija_vzigalica} & {
+				color: var(--color-gray-800);
+				border-color: var(--color-gray-300);
+			}
+
+			// stylelint-disable-next-line
+			.#{$theme_cukrarna} & {
+				background-color: var(--color-cukrarna);
+			}
+		}
+	}
+
+	// ##################################################
+
+	&--small {
+		min-height: 32px;
+		padding: 6px 16px;
+		font-size: 12px;
+
+		// Touch screens: a taller tap area (32px + 2 x 6px = 44px), the button looks the same
+		@media (pointer: coarse) {
+			&::after {
+				content: '';
+				position: absolute;
+				inset: -6px 0;
+			}
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_cukrarna} & {
+			min-height: 36px;
+		}
+
+		.btn__icon {
+			min-width: 12px;
+
+			.icon {
+				width: 12px;
+				height: 12px;
+			}
+		}
+
+		.btn__icon--arrow {
+			--btn-arrow-size: 12px;
+		}
+	}
+
+	// ##################################################
+
+	// The same in every theme (the mgml look). .btn.btn--transparent-dark, so it wins over the theme rules on .btn
+	// (".theme .btn" colours, cukrarna's rounded corners, the red themes' hover), which come earlier in the CSS
+	&#{&}--transparent-dark {
+		background-color: transparent;
+		color: var(--color-black);
+		border: 1px solid rgba($cgp_black, 0.1);
+		border-radius: 0;
+
+		&::before {
+			display: none;
+		}
+
+		@include btn-hover {
+			color: var(--color-black);
+			background-color: rgba($cgp_black, 0.1);
+		}
+
+		// Galerija Jakopic (a dark page): the same as transparent-light in the other themes
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: var(--color-gray-800);
+			color: var(--color-white);
+			border-color: rgba($cgp_white, 0.15);
+
+			@include btn-hover {
+				color: var(--color-white);
+				background-color: rgba($cgp_white, 0.15);
+			}
+		}
+	}
+
+	// ##################################################
+
+	// The same in every theme. .btn.btn--transparent-light, so it wins over the theme rules on .btn (see transparent-dark)
+	&#{&}--transparent-light {
+		background-color: var(--color-gray-800);
+		color: var(--color-white);
+		border: 1px solid rgba($cgp_white, 0.15);
+
+		&::before {
+			display: none;
+		}
+
+		@include btn-hover {
+			color: var(--color-white);
+			background-color: rgba($cgp_white, 0.15);
+
+			// stylelint-disable-next-line
+			.#{$theme_cukrarna} & {
+				background-color: rgba($cgp_white, 0.15);
+			}
+		}
+
+		// Galerija Jakopic: the same as transparent-dark in the other themes
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: transparent;
+			color: var(--color-black);
+			border-color: rgba($cgp_black, 0.1);
+
+			@include btn-hover {
+				color: var(--color-black);
+				background-color: rgba($cgp_black, 0.1);
+			}
+		}
+	}
+
+	// ##################################################
+
+	&--left-icon {
+		.btn__icon {
+			order: -1;
+		}
+	}
+
+	// ##################################################
+	// Pressed
+
+	// Scales down slower ($btn_press_in_duration) than it springs back ($btn_press_duration)
+	&:active {
+		transform: scale($btn_press_scale);
+		transition-duration: $btn_press_in_duration;
+	}
+
+	// Colors still change, the button does not move
+	@media (prefers-reduced-motion: reduce) {
+		&:active {
+			transform: none;
+		}
+	}
+
+	// ##################################################
+	// Disabled button
+
+	&[disabled],
+	&--disabled {
+		cursor: not-allowed;
+		transition: none;
+		pointer-events: none;
+		color: var(--color-gray-600) !important;
+		border-color: var(--color-gray-400) !important;
+		background-color: var(--color-gray-400) !important;
+
+		.btn__icon {
+			transform: none !important;
+		}
+	}
+
+	&.hide,
+	&.d-none {
+		display: none;
+	}
+}

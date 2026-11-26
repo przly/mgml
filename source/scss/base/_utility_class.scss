@@ -1,0 +1,886 @@
+// ##################################################
+// BACKGROUNDS
+// ##################################################
+
+.cover-bg {
+	@extend %abs_pos_fullwidth;
+	background-size: cover;
+	background-position: center center;
+
+	img {
+		display: none;
+	}
+}
+
+.covered {
+	@extend %abs_pos_fullwidth;
+	max-height: initial;
+
+	&-pointer {
+		@extend %abs_pos_fullwidth_cursor;
+	}
+}
+
+// ##################################################
+
+.font {
+	&-primary {
+		font-family: var(--font-primary);
+	}
+
+	&-secondary {
+		font-family: var(--theme-font);
+	}
+}
+
+// ##################################################
+
+.bg {
+	&-image {
+		img,
+		picture,
+		picture img {
+			@extend %abs_pos_fullwidth;
+			max-height: initial;
+		}
+	}
+
+	// ##################################################
+
+	&-video {
+		@extend %bg_video;
+
+		// ##################################################
+
+		video {
+			height: 100%;
+			width: 100%;
+			object-fit: cover;
+		}
+	}
+
+	// ##################################################
+
+	&-gray-800 {
+		background-color: var(--color-gray-800);
+		color: var(--color-white);
+	}
+}
+
+// ##################################################
+
+.overflow-backface {
+	@extend %backface;
+}
+
+// ##################################################
+
+.overflow-h {
+	overflow: hidden;
+}
+
+// ##################################################
+// TEXT ALIGN
+// ##################################################
+
+.text-left {
+	text-align: left;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.text-center {
+	text-align: center;
+}
+
+// ##################################################
+// SCREEN READER
+// ##################################################
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+// ##################################################
+// TEXT
+// ##################################################
+
+.text {
+	// ##################################################
+
+	&--12 {
+		@extend %fontsize12;
+	}
+
+	// ##################################################
+
+	&--14 {
+		@extend %fontsize14;
+	}
+
+	// ##################################################
+
+	&--16 {
+		@extend %fontsize16;
+	}
+
+	// ##################################################
+
+	&--18 {
+		@extend %fontsize18;
+	}
+
+	// ##################################################
+
+	&--20 {
+		@extend %fontsize20;
+	}
+
+	// ##################################################
+
+	&--24 {
+		@extend %fontsize24;
+	}
+
+	// ##################################################
+
+	&--32 {
+		@extend %fontsize32;
+	}
+
+	// ##################################################
+
+	&--64 {
+		@extend %fontsize64;
+	}
+
+	// ##################################################
+
+	&--80 {
+		@extend %fontsize80;
+	}
+
+	// ##################################################
+
+	&--128 {
+		@extend %fontsize128;
+	}
+
+	// ##################################################
+
+	&--xl {
+		@extend %headingxl;
+	}
+
+	// ##################################################
+
+	&--2xl {
+		@extend %heading2xl;
+	}
+
+	// ##################################################
+
+	&--3xl {
+		@extend %heading3xl;
+	}
+
+	// ##################################################
+
+	&--4xl {
+		@extend %heading4xl;
+	}
+
+	// ##################################################
+
+	&--5xl {
+		@extend %heading5xl;
+	}
+
+	// ##################################################
+
+	&--6xl {
+		@extend %heading6xl;
+	}
+
+	// ##################################################
+
+	&--7xl {
+		@extend %heading7xl;
+	}
+
+	// ##################################################
+
+	&--8xl {
+		@extend %heading8xl;
+	}
+
+	// ##################################################
+
+	&--9xl {
+		@extend %heading9xl;
+	}
+
+	// ##################################################
+
+	&--uppercase {
+		text-transform: uppercase;
+	}
+
+	// ##################################################
+
+	&--white {
+		color: var(--color-white);
+
+		&.title,
+		.title {
+			color: var(--color-white);
+		}
+	}
+
+	// ##################################################
+
+	&--blackish {
+		color: var(--color-blackish);
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-100 {
+		color: var(--color-gray-100);
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-200 {
+		color: var(--color-gray-200);
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-300 {
+		color: var(--color-gray-300);
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-400 {
+		color: var(--color-gray-400);
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: inherit;
+		}
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-500 {
+		color: var(--color-gray-500);
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: inherit;
+		}
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-600 {
+		color: var(--color-gray-600);
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: inherit;
+		}
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-700 {
+		color: var(--color-gray-700);
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: inherit;
+		}
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-800 {
+		color: var(--color-gray-800);
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: inherit;
+		}
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-900 {
+		color: var(--color-gray-900);
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: inherit;
+		}
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--gray-950 {
+		color: var(--color-gray-950);
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} &,
+		.#{$theme_premium_black} & {
+			color: inherit;
+		}
+
+		&.title,
+		.title {
+			color: inherit;
+		}
+	}
+
+	// ##################################################
+
+	&--lt {
+		font-weight: 300;
+	}
+
+	// ##################################################
+
+	&--rg {
+		font-weight: 400;
+	}
+
+	// ##################################################
+
+	&--md {
+		font-weight: 500;
+	}
+
+	// ##################################################
+
+	&--sb {
+		font-weight: 600;
+
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			color: var(--color-gray-200);
+		}
+	}
+
+	// ##################################################
+
+	&--bd {
+		font-weight: 700;
+
+		// stylelint-disable-next-line
+		.#{$theme_mgml} & {
+			font-weight: 600;
+		}
+	}
+
+	// ##################################################
+
+	&--eb {
+		font-weight: 800;
+	}
+}
+
+.stretched-link {
+	font-size: 0;
+	line-height: 0;
+	opacity: 0;
+	overflow: hidden;
+
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 6;
+	}
+}
+
+// ##################################################
+// VISIBILITY
+// ##################################################
+
+.hide {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+.d-flex {
+	display: flex;
+}
+
+.d-flex-cc,
+.d-flex-center-center {
+	@extend %flex_center_center;
+}
+
+.d-none {
+	display: none;
+}
+
+.container--large {
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+	max-width: calc(100% - 80px);
+	padding: 0;
+
+	// Small desktop and down
+	@media #{$breakpoint-lg-down} {
+		max-width: calc(100% - 60px);
+	}
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		max-width: calc(100% - #{$gutter_sm * 2});
+	}
+
+	// Mobile
+	@media #{$breakpoint-xs-only} {
+		max-width: calc(100% - #{$gutter_xs * 2});
+	}
+}
+
+// ##################################################
+
+.f-auto {
+	display: flex;
+	flex-direction: column;
+	flex: auto;
+}
+
+// ##################################################
+
+.p-0 {
+	padding: 0 !important;
+}
+
+// ##################################################
+
+.p-none {
+	pointer-events: none;
+}
+
+// ##################################################
+
+.p-relative {
+	position: relative;
+}
+
+// ##################################################
+
+.mx-auto {
+	margin: 0 auto;
+	width: 100%;
+	display: block;
+}
+
+// ##################################################
+
+.overlay {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--color-black);
+	opacity: 0.9;
+	mix-blend-mode: multiply;
+}
+
+// ##################################################
+
+.swiper {
+	@include user-select;
+}
+
+.slider-arrow {
+	display: flex;
+	align-items: center;
+	text-align: left;
+	width: 80px;
+	height: 44px;
+	border-bottom: 1px solid var(--color-gray-200);
+	padding: 8px 10px;
+	position: relative;
+	transition: opacity $hover_out_duration $ease_out_strong;
+
+	// stylelint-disable-next-line
+	.#{$theme_premium_black} & {
+		border-color: var(--color-gray-800);
+	}
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} & {
+		border-color: var(--theme-border);
+	}
+
+	// Bottom line
+	&::before {
+		content: '';
+		position: absolute;
+		height: 1px;
+		z-index: 1;
+		bottom: -1px;
+		background-color: var(--color-gray-800);
+		left: 0;
+		width: 100%;
+		// Scaled instead of resized, so the line does not trigger layout on every frame.
+		// Base state = hover-out; the active state below switches to $hover_in_duration.
+		transform: scaleX(0);
+		transition: transform $hover_out_duration $ease_out_strong;
+
+		// Same hover line colors as .link-with-arrow
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			background-color: var(--color-gray-200);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background-color: rgba($cgp_white, 0.3);
+		}
+	}
+
+	// Each line grows from the outer edge, toward the arrow it belongs to
+	&.swiper-button-prev {
+		--slider-arrow-nudge: -3px;
+
+		&::before {
+			transform-origin: right;
+		}
+	}
+
+	&.swiper-button-next {
+		--slider-arrow-nudge: 3px;
+		justify-content: flex-end;
+
+		&::before {
+			transform-origin: left;
+		}
+	}
+
+	.icon {
+		width: 24px;
+		height: 24px;
+		// Press feedback: the arrow gives a small push in its direction
+		transition: transform 0.16s $transition_easeInOutCubic;
+
+		&::before {
+			background-color: var(--color-gray-800);
+			transition: background-color $hover_out_duration $ease_out_strong;
+
+			// stylelint-disable-next-line
+			.#{$theme_premium_black} & {
+				background-color: var(--color-gray-400);
+			}
+
+			// stylelint-disable-next-line
+			.#{$theme_galerija_jakopic} & {
+				background-color: currentColor;
+			}
+		}
+	}
+
+	&[aria-disabled='true'] {
+		opacity: 0.4;
+		pointer-events: none;
+	}
+
+	// Active state: hover on devices that really hover, and keyboard focus.
+	// Separate rules, so a browser that does not know one selector does not drop the other.
+	@mixin slider-arrow-active {
+		.icon::before {
+			background-color: var(--theme-accent);
+			transition-duration: $hover_in_duration;
+		}
+
+		&::before {
+			transform: scaleX(1);
+			transition-duration: $hover_in_duration;
+		}
+	}
+
+	@media #{$media_hover} {
+		&:hover {
+			@include slider-arrow-active;
+		}
+	}
+
+	&:focus-visible {
+		@include slider-arrow-active;
+	}
+
+	&:active .icon,
+	&.is-pressed .icon {
+		transform: translateX(var(--slider-arrow-nudge, 0));
+		transition-duration: $press_duration;
+		transition-timing-function: $ease_out_press;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		&::before,
+		.icon {
+			transition: none;
+		}
+
+		&:active .icon,
+		&.is-pressed .icon {
+			transform: none;
+		}
+	}
+}
+
+.load-more {
+	z-index: 6;
+	position: relative;
+	margin-top: -32px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+
+	// ##################################################
+	// White overlay
+
+	&::after {
+		content: '';
+		width: 100%;
+		height: 294px;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		background: linear-gradient(
+			to top,
+			rgba(245, 245, 245, 1) 0%,
+			rgba(245, 245, 245, 1) 10%,
+			rgba(245, 245, 245, 0) 100%
+		);
+		pointer-events: none;
+
+		// stylelint-disable-next-line
+		.#{$theme_premium_black} & {
+			background: linear-gradient(
+				to top,
+				rgba($cgp_gray_950, 1) 0%,
+				rgba($cgp_gray_950, 1) 10%,
+				rgba($cgp_gray_950, 0) 100%
+			);
+		}
+
+		// stylelint-disable-next-line
+		.#{$theme_galerija_jakopic} & {
+			background: linear-gradient(
+				to top,
+				rgba($cgp_jakopic, 1) 0%,
+				rgba($cgp_jakopic, 1) 10%,
+				rgba($cgp_jakopic, 0) 100%
+			);
+		}
+	}
+
+	// ##################################################
+
+	.btn {
+		position: relative;
+		z-index: 3;
+	}
+}
+
+// ##################################################
+
+.no-result {
+	min-height: 244px;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	justify-content: center;
+	text-align: center;
+	color: var(--color-gray-800);
+
+	// stylelint-disable-next-line
+	.#{$theme_galerija_jakopic} &,
+	.#{$theme_premium_black} & {
+		color: inherit;
+	}
+
+	&-title {
+		strong {
+			font-weight: 400;
+		}
+	}
+
+	&.hide {
+		display: none;
+	}
+}
+
+// ##################################################
+
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination {
+	position: relative;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+	line-height: normal;
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+
+	.swiper-pagination-bullet {
+		margin: 0;
+	}
+
+	// ##################################################
+
+	&-bullet {
+		height: 6px;
+		width: 6px;
+		border: 0;
+		outline: 0;
+		border-radius: 0;
+		margin: 0;
+		opacity: 1;
+		background-color: rgba($cgp_gray_100, 0.5);
+		transition: background-color 0.3s ease, opacity 0.3s ease;
+
+		// ##################################################
+
+		&-active {
+			background-color: var(--color-white);
+		}
+
+		// ##################################################
+
+		&:hover {
+			// Tablet L and Up
+			@media #{$breakpoint-md-up} {
+				background-color: var(--color-white);
+			}
+		}
+	}
+}
+
+.sentence-format {
+	.title {
+		text-transform: initial !important;
+	}
+}
+
+.set-bottom-border {
+	padding-bottom: 64px;
+	border-bottom: 1px solid var(--color-gray-200);
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		padding-bottom: 60px;
+	}
+
+	&.p-0 {
+		padding-bottom: 64px !important;
+
+		// Tablet P and down
+		@media #{$breakpoint-sm-down} {
+			padding-bottom: 60px !important;
+		}
+	}
+}
+
+.set-top-border {
+	padding-top: 64px;
+	border-top: 1px solid var(--color-gray-200);
+
+	// Tablet P and down
+	@media #{$breakpoint-sm-down} {
+		padding-top: 60px;
+	}
+
+	&.p-0 {
+		padding-top: 64px !important;
+
+		// Tablet P and down
+		@media #{$breakpoint-sm-down} {
+			padding-top: 60px !important;
+		}
+	}
+}
